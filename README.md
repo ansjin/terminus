@@ -128,8 +128,7 @@ https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-windows.html
     $ curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
     $ source /etc/lsb-release
     $ echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-    $ sudo apt-get update && sudo apt-get install influxdb
-    $ sudo service influxdb start    
+    $ sudo apt-get update && sudo apt-get install -y influxdb  
    ```
 ## Running  
 ### Terminus Deployment
@@ -170,7 +169,7 @@ https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-windows.html
   ``` 
 #### Influxdb Data download
 It needs to be only downloaded if you want to perform traning again or view the data other than MSC. 
-All the collected monitoring data is stored in the <a href= "https://s3.console.aws.amazon.com/s3/buckets/terminusinflusddata/?region=ap-southeast-2&tab=overview"> S3 bucket</a>.
+All the collected monitoring data is stored in the <a href= "https://s3.console.aws.amazon.com/s3/buckets/terminusinfluxddatamain/?region=ap-southeast-2&tab=overview"> S3 bucket</a>.
 To use those dataset for the initial setup, follow the below procedure.
  1. Make a directory to contain all the data  
  ```sh 
@@ -178,14 +177,14 @@ To use those dataset for the initial setup, follow the below procedure.
  ```
  2. Now, gGet all the compressed influxdb files by running 
  ```sh 
-    $ sudo s3cmd get --recursive s3://terminusinflusddata/ /data
+    $ sudo s3cmd get --recursive s3://terminusinfluxdatamain/ /data
    ```
  3. Now we will have all the data inside the directory, we need to restore back to influxdb by running the following command:
  ```sh 
-     $ sudo influxd restore -portable -host <VM public IP:8088> *
+     $ sudo influxd restore -portable -host <VM_public_IP:8088> /data/sept/
    ```
   
-### Initial Training and Setup
+### Initial Training and Setup ```[not required if exported mongo dump]```
  1. From web browser visit 
          ```
              http://VM_IP:8082
@@ -193,7 +192,7 @@ To use those dataset for the initial setup, follow the below procedure.
  2. Do all types of training for each services by selecting from the menu. It will take some time to complete the training.
  3. After the training Click on <b>Store All MSCs.</b> This will also take some time to complete.
  4. After that, click on <b>Store MSC Prediction Data</b>.
- 5.  Lastly, Do the KubeEventAnalysis for all the services.
+ 5. Lastly, Do the KubeEventAnalysis for all the services.
  
 ### Testing and Visulaization
  
@@ -287,6 +286,9 @@ To use those dataset for the initial setup, follow the below procedure.
   ```http://VM_IP:8082/assets/swagger.yaml```
   6. This yaml file then can be used on ```https://editor.swagger.io/``` to generate API documentation.
      
+## Python Notebooks and other Useful Scripts
+Some of the testing python notebooks and other useful scripts can be found in the importantScripts folder.
+These notebooks are the test version for the linear regression with different parameters and data.  
  
 ## Help and Contibution
 
