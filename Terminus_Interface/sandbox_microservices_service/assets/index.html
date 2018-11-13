@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Terminus</title>
+</head>
+<body>
+
+here are logs from server:<br>
+<pre>
+        <div id="logs">
+
+        </div>
+    </pre>
+<script type="text/javascript">
+
+    function IsJsonString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+    // Create a new HTML5 EventSource
+    var source = new EventSource('/events/');
+    // Create a callback for when a new message is received.
+    source.onmessage = function(e) {
+        // Append the `data` attribute of the message to the DOM.
+
+        if(IsJsonString(e.data)){
+            var val = JSON.parse(e.data);
+            document.getElementById("logs").innerHTML +=val.message + '<br>';
+        }else{
+            document.getElementById("logs").innerHTML += e.data + '<br>';
+        }
+
+    };
+</script>
+</body>
+</html>

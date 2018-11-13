@@ -1,0 +1,484 @@
+{{define "content"}}
+
+<div id="right-panel" class="right-panel">
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Performance Comparsion of various Instances with same limits to the actual instances </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li><a href="/">Dashboard</a></li>
+                        <li><a href="#">Previous Results</a></li>
+                        <li class="active">Limits Comparison</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: -5px">
+
+        <div class="row ">
+            <div class="col-lg-12">
+                    <p class="mb-3" style="padding: 10px">
+                        We can see here the performance of different instance types with same limits is almost the same.
+                        Also check the performance of those limited instances to the actual instance performance. <br>
+                    </p>
+                    <h4 style="margin-left: 10px">Conclusions:</h4>
+                    <div style="text-align: justify">
+                        <ul style="margin-left: 40px; padding: 5px">
+                            <li>Different types of instances with same limits gives almost same performance
+                                with one condition the instance has the necessary resources</li>
+                            <li>Performance of limited Instance is again almost same as the performance
+                                of a virtual machine with the same amount of resources. There will be slight drop of performance
+                                towards the peak due to the fact that VM is using some resources undearneath and not all resources are
+                                available as compared to the limited instance.</li>
+                            <li>Resource Utilization of different pods/replicas on the same machine is exactly the same.
+                            </li>
+                        </ul>
+                    </div>
+
+
+            </div>
+        </div>
+
+        <div class="row mt-3">
+
+            <form  class="col-lg-12" name="limitsComparisonForm" action="#" >
+                <div class="col-lg-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Service Name</strong>
+                        </div>
+                        <div class="card-body">
+
+                            <select name="serviceName" data-placeholder="Select the service" class="standardSelect" tabindex="5">
+                                <option value=""></option>
+                                <option value=""></option>
+                                <optgroup label="Compute">
+                                    <option value="compute/primeapp/primeapp">Prime Sum Calculation App</option>
+                                </optgroup>
+                                <optgroup label="DB Access">
+                                    <option value="dbaccess/movieapp/movieapp">Movies Access App</option>
+                                </optgroup>
+                                <optgroup label="Web">
+                                    <option value="web/webacapp/webacapp">Web Access App</option>
+                                </optgroup>
+                                <optgroup label="Sandbox">
+                                    <option value="sandbox/serveapp/serveapp">Sandboxed Server App</option>
+                                </optgroup>
+                                <optgroup label="Multiple">
+                                    <option value="mix/mixalapp/primeapp">Multi Services App - Prime</option>
+                                    <option value="mix/mixalapp/movieapp">Multi Services App - Movie</option>
+                                    <option value="mix/mixalapp/webacapp">Multi Services App - Web</option>
+                                    <option value="mix/mixalapp/serveapp">Multi Services App - Server</option>
+                                </optgroup>
+
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-lg-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Replicas</strong>
+                        </div>
+                        <div class="card-body">
+
+                            <select name="replicas" data-placeholder="Select number of replicas..." class="standardSelect" tabindex="1">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-lg-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Limits</strong>
+                        </div>
+                        <div class="card-body">
+
+                            <select name="limitingInstance" data-placeholder="Select Limits..." class="standardSelect" tabindex="1">
+                                <option value=""></option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                                <option value="500">500</option>
+                                <option value="t2.nano">t2.nano</option>
+                                <option value="t2.micro">t2.micro</option>
+                                <option value="t2.small">t2.small</option>
+                                <option value="t2.medium">t2.medium</option>
+                                <option value="t2.large">t2.large</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-lg-3"  >
+                    <button id="submit-button-compare-limits" type="submit" class="btn btn-lg btn-info btn-block">
+                        <i class="fa fa-line-chart fa-lg"></i>&nbsp;
+                        <span id="payment-button-amount">Compare Limits</span>
+                    </button>
+                    <button id="submit-button-compare-with-vm" type="submit" class="btn btn-lg btn-info btn-block">
+                        <i class="fa fa-line-chart fa-lg"></i>&nbsp;
+                        <span id="payment-button-amount">Compare with VM</span>
+                        <span id="payment-button-sending" style="display:none;">Forming…</span>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+        <div class="row mt-3" style="padding: 5px">
+            <div class="col-lg-12">
+                <div class="card" style="text-align: center">
+                    <div class="card-header">
+                        <h4 class="mb-3">Limits Selected: <span id="instanceType" style="color: #0b7ec4"></span>  </h4>
+                    </div>
+                </div>
+            </div><!-- /# column -->
+        </div>
+        <div class="row mt-3" style="padding: 5px">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3">Virtual Users Created </h4>
+                        <div id="vus"></div>
+                    </div>
+                </div>
+            </div><!-- /# column -->
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3">Total Requests Processed </h4>
+                        <div id="requests"></div>
+                    </div>
+                </div>
+            </div><!-- /# column -->
+        </div>
+        <div class="row mt-3" style="padding: 5px">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3">Requests Duration (Averaged over span of 1 min) </h4>
+                        <div id="requests-duration-mean"></div>
+                    </div>
+                </div>
+            </div><!-- /# column -->
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3">Requests Duration (Maximum in the span of 1 min) </h4>
+                        <div id="requests-duration-max"></div>
+                    </div>
+                </div>
+            </div><!-- /# column -->
+        </div>
+
+
+
+        <div class="row mt-3" style="padding: 5px">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3">Main Instance CPU Utilization </h4>
+                        <div id="instance-cpuutil-chart"></div>
+                    </div>
+                </div>
+            </div><!-- /# column -->
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3">Main Instance Mem Utilization </h4>
+                        <div id="instance-memutil-chart"></div>
+                    </div>
+                </div>
+            </div><!-- /# column -->
+        </div>
+
+        <div class="row mt-3" style="padding: 5px">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3" style="text-align: center">Pod(Limiting Instance) CPU Utilization </h4>
+                        <div id="pod-cpuutil-chart"></div>
+                    </div>
+                </div>
+            </div><!-- /# column -->
+        </div>
+        <div class="row mt-3" style="padding: 5px">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3" style="text-align: center">Pod(Limiting Instance) Mem Utilization </h4>
+                        <div id="pod-memutil-chart"></div>
+                    </div>
+                </div>
+            </div><!-- /# column -->
+        </div>
+
+    </div><!-- .animated -->
+
+</div>
+
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".standardSelect").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+            width: "100%"
+        });
+    });
+    $("#submit-button-compare-limits").click(function(){
+        let serviceName = document.forms["limitsComparisonForm"]["serviceName"].value;
+        let replicas = document.forms["limitsComparisonForm"]["replicas"].value;
+        let limitingInstance = document.forms["limitsComparisonForm"]["limitingInstance"].value;
+        instancesDataURl= "/getRelevantInstancesDataBasedOnLimits/" + serviceName + '/' + limitingInstance + '/' + replicas;
+        requestsDataUrl= "/getRelevantInstancesRequestsDataBasedOnLimits/" + serviceName + '/' + limitingInstance + '/' + replicas;
+        makeGraph(instancesDataURl, requestsDataUrl);
+        document.getElementById("instanceType").innerHTML=limitingInstance;
+        return false;
+    });
+
+    $("#submit-button-compare-with-vm").click(function(){
+        let serviceName = document.forms["limitsComparisonForm"]["serviceName"].value;
+        let replicas = document.forms["limitsComparisonForm"]["replicas"].value;
+        let limitingInstance = document.forms["limitsComparisonForm"]["limitingInstance"].value;
+        instancesDataURl= "/getRelevantInstancesActualInstanceDataBasedOnLimits/" + serviceName + '/' + limitingInstance + '/' + replicas;
+        requestsDataUrl= "/getRelevantInstancesActualInstanceRequestsDataBasedOnLimits/" + serviceName + '/' + limitingInstance + '/' + replicas;
+        makeGraph(instancesDataURl, requestsDataUrl);
+        document.getElementById("instanceType").innerHTML=limitingInstance;
+        return false;
+    });
+
+    function makeGraph(instancesDataUrl, requestsDataUrl ) {
+        fetch(instancesDataUrl)
+                .then(response => response.json())
+                .then(NodePodPerformanceInstaces => {
+                    let datainstanceCpu = [];
+                    let datainstanceMem = [];
+                    let dataPodMem = [];
+                    let dataPodCpu = [];
+                    NodePodPerformanceInstaces.forEach(NodePodPerformance => {
+
+                        console.log(NodePodPerformance);
+                        let instancecpuTrace = {
+                            type: "scatter",
+                            mode: "lines",
+                            name: NodePodPerformance.InstanceType,
+                            x: NodePodPerformance.Timestamps,
+                            y: NodePodPerformance.CpuUtil,
+                            line: {color: '#17BxCF'},
+
+                        };
+                        let instancememTrace = {
+                            type: "scatter",
+                            mode: "lines",
+                            name: NodePodPerformance.InstanceType,
+                            x: NodePodPerformance.Timestamps,
+                            y: NodePodPerformance.MemUtil,
+                            line: {color: '#17BxCF'},
+
+                        };
+                        NodePodPerformance.PodValues.forEach(PodPerformance => {
+                            let podcpuTrace = {
+                                type: "scatter",
+                                mode: "lines",
+                                name: NodePodPerformance.InstanceType +"-"+ PodPerformance.PodName,
+                                x: PodPerformance.Timestamps,
+                                y: PodPerformance.CpuUtil,
+                                line: {color: '#17BxCF'},
+
+                            };
+                            let podmemTrace = {
+                                type: "scatter",
+                                mode: "lines",
+                                name: NodePodPerformance.InstanceType +"-"+ PodPerformance.PodName,
+                                x: PodPerformance.Timestamps,
+                                y: PodPerformance.MemUtil,
+                                line: {color: '#17BxCF'},
+
+                            };
+
+                            dataPodCpu.push(podcpuTrace);
+                            dataPodMem.push(podmemTrace);
+                        });
+                        datainstanceCpu.push(instancecpuTrace);
+                        datainstanceMem.push(instancememTrace);
+                    });
+                    let layoutinstanceCPU = {
+                        xaxis: {
+                            titlefont: {
+                                family: 'Courier New, monospace',
+                                size: 14,
+                                color: '#7f7f7f'
+                            }
+                        },
+                        yaxis: {
+                            title: 'CPU Utilization',
+                            titlefont: {
+                                family: 'Courier New, monospace',
+                                size: 14,
+                                color: '#7f7f7f'
+                            }
+                        },
+                        legend: {"orientation": "h"}
+
+                    };
+                    let layoutinstanceMem = {
+                        xaxis: {
+                            titlefont: {
+                                family: 'Courier New, monospace',
+                                size: 14,
+                                color: '#7f7f7f'
+                            }
+                        },
+                        yaxis: {
+                            title: 'Memory Utilization',
+                            titlefont: {
+                                family: 'Courier New, monospace',
+                                size: 14,
+                                color: '#7f7f7f'
+                            }
+                        },
+                        legend: {"orientation": "h"},
+
+
+                    };
+                    Plotly.newPlot("instance-cpuutil-chart", datainstanceCpu, layoutinstanceCPU);
+                    Plotly.newPlot("instance-memutil-chart", datainstanceMem, layoutinstanceMem);
+
+                    Plotly.newPlot("pod-cpuutil-chart", dataPodCpu, layoutinstanceCPU);
+                    Plotly.newPlot("pod-memutil-chart", dataPodMem, layoutinstanceMem);
+                });
+
+        fetch(requestsDataUrl)
+                .then(response => response.json())
+                .then(RequestDataInstaces => {
+                    let dataVus = [];
+                    let dataRequests= [];
+                    let dataReqDurationMean = [];
+                    let dataReqDurationMax = [];
+                    RequestDataInstaces.forEach(RequestDataInstace => {
+
+                        let Vus = {
+                            type: "scatter",
+                            mode: "lines",
+                            name: RequestDataInstace.InstanceType,
+                            x: RequestDataInstace.Timestamps,
+                            y: RequestDataInstace.Vus,
+                            line: {color: '#17BxCF'},
+
+                        };
+                        let requests = {
+                            type: "scatter",
+                            mode: "lines",
+                            name: RequestDataInstace.InstanceType,
+                            x: RequestDataInstace.Timestamps,
+                            y: RequestDataInstace.Requests,
+                            line: {color: '#17BxCF'},
+
+                        };
+                        let requestsDurationMean = {
+                            type: "scatter",
+                            mode: "lines",
+                            name: RequestDataInstace.InstanceType,
+                            x: RequestDataInstace.Timestamps,
+                            y: RequestDataInstace.ReqDurationMean,
+                            line: {color: '#17BxCF'},
+
+                        };
+                        let requestsDurationMax = {
+                            type: "scatter",
+                            mode: "lines",
+                            name: RequestDataInstace.InstanceType,
+                            x: RequestDataInstace.Timestamps,
+                            y: RequestDataInstace.ReqDurationMax,
+                            line: {color: '#17BxCF'},
+
+                        };
+
+                        dataVus.push(Vus);
+                        dataRequests.push(requests);
+                        dataReqDurationMean.push(requestsDurationMean);
+                        dataReqDurationMax.push(requestsDurationMax);
+
+                    });
+                    let layoutVus = {
+                        xaxis: {
+                            titlefont: {
+                                family: 'Courier New, monospace',
+                                size: 14,
+                                color: '#7f7f7f'
+                            }
+                        },
+                        yaxis: {
+                            title: 'Number of VUs',
+                            titlefont: {
+                                family: 'Courier New, monospace',
+                                size: 14,
+                                color: '#7f7f7f'
+                            }
+                        },
+                        legend: {"orientation": "h"}
+
+                    };
+                    let layoutRequests = {
+                        xaxis: {
+                            titlefont: {
+                                family: 'Courier New, monospace',
+                                size: 14,
+                                color: '#7f7f7f'
+                            }
+                        },
+                        yaxis: {
+                            title: 'Number of Requests per Min',
+                            titlefont: {
+                                family: 'Courier New, monospace',
+                                size: 14,
+                                color: '#7f7f7f'
+                            }
+                        },
+                        legend: {"orientation": "h"},
+
+
+                    };
+                    let layoutRequestsDuration = {
+                        xaxis: {
+                            titlefont: {
+                                family: 'Courier New, monospace',
+                                size: 14,
+                                color: '#7f7f7f'
+                            }
+                        },
+                        yaxis: {
+                            title: 'Time in Miliseconds',
+                            titlefont: {
+                                family: 'Courier New, monospace',
+                                size: 14,
+                                color: '#7f7f7f'
+                            }
+                        },
+                        legend: {"orientation": "h"},
+
+
+                    };
+                    Plotly.newPlot("vus", dataVus, layoutVus);
+                    Plotly.newPlot("requests", dataRequests, layoutRequests);
+                    Plotly.newPlot("requests-duration-mean", dataReqDurationMean, layoutRequestsDuration);
+                    Plotly.newPlot("requests-duration-max", dataReqDurationMax, layoutRequestsDuration);
+                });
+    }
+</script>
+{{end}}

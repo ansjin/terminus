@@ -1,0 +1,677 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is the api page for all APIs in INSTANCE",
+        "title": "INSTANCE APIs",
+        "contact": {
+            "name": "Anshul Jindal",
+            "email": "anshul.jindal@tum.de"
+        },
+        "license": {
+            "name": "GPL-3.0",
+            "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/GetPerVMTypeOneBootShutDownData": {
+            "get": {
+                "description": "Gives all the Booting and shutting down data",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "internal_External_Use"
+                ],
+                "summary": "Gives all the Booting and shutting down data for a VM type",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "number of instances",
+                        "name": "numInstances",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "instance type",
+                        "name": "instanceType",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "aws region ",
+                        "name": "region",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "appraoch avg or regression, by default it is avg",
+                        "name": "appraoch",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cloud service provider..current;y it is aws only",
+                        "name": "csp",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/INSTANCE.VMBootShutDownRatePerInstanceTypeOne"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getAllVMTypesBootShutDownDataAvg": {
+            "get": {
+                "description": "Gives all the Booting and shutting down data following avg approach",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "internalUse"
+                ],
+                "summary": "Gives all the Booting and shutting down data following avg approach",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "specify it yes if to take walues from the db and update the resulting average",
+                        "name": "takeNewValues",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/INSTANCE.VmTemplateData"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getAllVMTypesBootShutDownDataRegression": {
+            "get": {
+                "description": "Gives all the Booting and shutting down data",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "internalUse"
+                ],
+                "summary": "Gives all the Booting and shutting down data",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/INSTANCE.InstanceRegression"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getPerVMTypeAllBootShutDownData": {
+            "get": {
+                "description": "Gives all the Booting and shutting down data",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "internal_External_Use"
+                ],
+                "summary": "Gives all the Booting and shutting down data for a VM type",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "instance type",
+                        "name": "instanceType",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "aws region ",
+                        "name": "region",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "appraoch avg or regression, by default it is avg",
+                        "name": "appraoch",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cloud service provider..current;y it is aws only",
+                        "name": "csp",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/INSTANCE.VMBootShutDownRatePerInstanceTypeAll"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getandStoreRegressionValues": {
+            "get": {
+                "description": "Query python regression to get the values for each instance type and then store in db",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "internalUse"
+                ],
+                "summary": "Query python regression to get the values for each instance type and then store in db",
+                "responses": {
+                    "200": {
+                        "description": "Done",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/initUserConfig": {
+            "post": {
+                "description": "Initialize User Configuration",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "internalUse"
+                ],
+                "summary": "Initialize User Configuration",
+                "parameters": [
+                    {
+                        "description": "{'access_key': '', 'secret': '', 'region':''}",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/INSTANCE.InitAWSFormData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/listAllInstances": {
+            "get": {
+                "description": "List all instances on AWS",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "internalUse"
+                ],
+                "summary": "List all instances on AWS",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/INSTANCE.Ec2Instances"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/trainDataSetRegression": {
+            "get": {
+                "description": "train the dataset",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "internalUse"
+                ],
+                "summary": "Train the dataset",
+                "responses": {
+                    "200": {
+                        "description": "Started",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "INSTANCE.Ec2Instances": {
+            "type": "object",
+            "properties": {
+                "AvailabilityZone": {
+                    "type": "string"
+                },
+                "CoreCount": {
+                    "type": "integer"
+                },
+                "ImageId": {
+                    "type": "string"
+                },
+                "InstanceId": {
+                    "type": "string"
+                },
+                "InstanceState": {
+                    "type": "string"
+                },
+                "InstanceType": {
+                    "type": "string"
+                },
+                "LaunchTime": {
+                    "type": "string"
+                },
+                "PublicIpAddress": {
+                    "type": "string"
+                }
+            }
+        },
+        "INSTANCE.ExperimentSetting": {
+            "type": "object",
+            "properties": {
+                "ExperimentNum": {
+                    "type": "string"
+                },
+                "Instances": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/INSTANCE.InstancesData"
+                    }
+                },
+                "InstancesBootTime": {
+                    "type": "object",
+                    "$ref": "#/definitions/INSTANCE.InstanceTime"
+                },
+                "InstancesShutDownTime": {
+                    "type": "object",
+                    "$ref": "#/definitions/INSTANCE.InstanceTime"
+                },
+                "NumInstances": {
+                    "type": "integer"
+                },
+                "TotalInstancesBootTime": {
+                    "type": "integer"
+                },
+                "TotalInstancesShutDownTime": {
+                    "type": "integer"
+                }
+            }
+        },
+        "INSTANCE.ExperimentsLoop": {
+            "type": "object",
+            "properties": {
+                "Experiments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/INSTANCE.ExperimentSetting"
+                    }
+                }
+            }
+        },
+        "INSTANCE.InitAWSFormData": {
+            "type": "object",
+            "properties": {
+                "access_key": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "secret": {
+                    "type": "string"
+                }
+            }
+        },
+        "INSTANCE.InstanceBootShutdownRate": {
+            "type": "object",
+            "properties": {
+                "BootTime": {
+                    "type": "object",
+                    "$ref": "#/definitions/INSTANCE.InstanceTime"
+                },
+                "NumExperiments": {
+                    "type": "integer"
+                },
+                "NumInstances": {
+                    "type": "integer"
+                },
+                "ShutdownTime": {
+                    "type": "object",
+                    "$ref": "#/definitions/INSTANCE.InstanceTime"
+                }
+            }
+        },
+        "INSTANCE.InstanceRegression": {
+            "type": "object",
+            "properties": {
+                "InstanceType": {
+                    "type": "string"
+                },
+                "InstanceValues": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/INSTANCE.InstanceValue"
+                    }
+                },
+                "Region": {
+                    "type": "string"
+                }
+            }
+        },
+        "INSTANCE.InstanceTime": {
+            "type": "object",
+            "properties": {
+                "Avg": {
+                    "type": "number"
+                },
+                "Max": {
+                    "type": "integer"
+                },
+                "Min": {
+                    "type": "integer"
+                }
+            }
+        },
+        "INSTANCE.InstanceValue": {
+            "type": "object",
+            "properties": {
+                "BootTime": {
+                    "type": "string"
+                },
+                "NumInstances": {
+                    "type": "integer"
+                },
+                "ShutDownTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "INSTANCE.InstancesData": {
+            "type": "object",
+            "properties": {
+                "Other": {
+                    "type": "integer"
+                },
+                "Pending": {
+                    "type": "integer"
+                },
+                "Running": {
+                    "type": "integer"
+                },
+                "ShuttingDown": {
+                    "type": "integer"
+                },
+                "SshLogin": {
+                    "type": "integer"
+                },
+                "Stopped": {
+                    "type": "integer"
+                },
+                "Terminated": {
+                    "type": "integer"
+                }
+            }
+        },
+        "INSTANCE.VMBootShutDownRatePerInstanceTypeAll": {
+            "type": "object",
+            "properties": {
+                "InstanceValues": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/INSTANCE.InstanceValue"
+                    }
+                }
+            }
+        },
+        "INSTANCE.VMBootShutDownRatePerInstanceTypeOne": {
+            "type": "object",
+            "properties": {
+                "BootTime": {
+                    "type": "string"
+                },
+                "ShutDownTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "INSTANCE.VmTemplateData": {
+            "type": "object",
+            "properties": {
+                "AvailabilityZone": {
+                    "type": "string"
+                },
+                "BootShutdownRate": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/INSTANCE.InstanceBootShutdownRate"
+                    }
+                },
+                "CoreCount": {
+                    "type": "integer"
+                },
+                "ExperimentLoop": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/INSTANCE.ExperimentsLoop"
+                    }
+                },
+                "ImageId": {
+                    "type": "string"
+                },
+                "InstanceType": {
+                    "type": "string"
+                },
+                "Region": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

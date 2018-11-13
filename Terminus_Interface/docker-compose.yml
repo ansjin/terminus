@@ -1,0 +1,165 @@
+ version: "2"
+ services:
+  terminusintf:
+    image: terminusimages/terminusintf:latest
+    container_name: 'terminusintf'
+    build: 'server'
+    ports:
+      - '8082:8082'
+    environment:
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - MONGODB_USER
+      - MONGODB_PASS
+      - INFLUXDB_USER
+      - INFLUXDB_PASS
+      - INFLUXDB_HOST=influxdb
+      - INFLUXDB_PORT=8086
+      - AWS_KEY
+      - AWS_SECRET
+      - AWS_DEFAULT_REGION
+      - AWS_KEY_PAIR_NAME
+      - AWS_SUBNET_ID
+      - AWS_SECURITY_GROUP
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/ssl/certs:/etc/ssl/certs
+      - ./data:/data
+    restart: always
+    depends_on:
+      - 'mongodb'
+      - 'regression'
+      - 'sandbox_microservices'
+      - 'instance'
+    links:
+      - 'mongodb'
+      - 'regression'
+      - 'sandbox_microservices'
+      - 'instance'
+  influxdb:
+    image: influxdb:latest
+    container_name: "influxdb"
+    ports:
+      - "8086:8086"
+      - "8090:8090"
+      - "8088:8088"
+    environment:
+      - INFLUXDB_REPORTING_DISABLED=false
+      - INFLUXDB_HTTP_AUTH_ENABLED=false
+      - INFLUXDB_BIND_ADDRESS=:8088
+    volumes:
+      # Data persistency
+      # sudo mkdir -p /srv/docker/influxdb/data
+      - /srv/docker/influxdb/data:/var/lib/influxdb
+  grafana:
+    image: terminusimages/grafana:latest
+    container_name: "grafana"
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    links:
+      - influxdb
+    depends_on:
+      - influxdb
+  regression:
+    image: terminusimages/regression:latest
+    container_name: 'regression'
+    build: 'regression'
+    ports:
+      - '9002:9002'
+    volumes:
+      - ./regression/training:/app/training
+    depends_on:
+      - 'influxdb'
+      - 'mongodb'
+    links:
+      - 'influxdb'
+      - 'mongodb'
+    environment:
+      - INFLUXDB_USER
+      - INFLUXDB_PASS
+      - INFLUXDB_HOST=influxdb
+      - INFLUXDB_PORT=8086
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - MONGODB_USER
+      - MONGODB_PASS
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGODB_USER
+      - MONGODB_PASS
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
+    volumes:
+      - ./mongo/db:/data/db
+    ports:
+        - "27017:27017"
+    command: mongod --auth # --quiet
+  instance:
+    image: terminusimages/instance:latest
+    container_name: 'instance'
+    build: 'instance'
+    ports:
+      - '8080:8080'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/ssl/certs:/etc/ssl/certs
+    depends_on:
+      - 'mongodb'
+      - 'regression_vm_boot'
+    links:
+      - 'mongodb'
+      - 'regression_vm_boot'
+    environment:
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - MONGODB_USER
+      - MONGODB_PASS
+  regression_vm_boot:
+    image: terminusimages/regression_vm_boot:latest
+    container_name: 'regression_vm_boot'
+    build: 'regression_vm_boot'
+    ports:
+      - '9001:9001'
+    volumes:
+      - ./regression_vm_boot/boot:/app/boot
+      - ./regression_vm_boot/shut:/app/shut
+    links:
+      - 'mongodb'
+    environment:
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - MONGODB_USER
+      - MONGODB_PASS
+  sandbox_microservices:
+    container_name: 'sandbox_microservices'
+    build: 'sandbox_microservices_service'
+    image: terminusimages/sandbox_microservices:latest
+    ports:
+      - '8083:8083'
+    environment:
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - MONGODB_USER=mongoDBSecureUser12378
+      - MONGODB_PASS=youdonthavetoknowthis8998
+      - AWS_KEY
+      - AWS_SECRET
+      - AWS_DEFAULT_REGION
+      - AWS_KEY_PAIR_NAME
+      - AWS_SUBNET_ID
+      - AWS_SECURITY_GROUP
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/ssl/certs:/etc/ssl/certs
+      - ./sandbox_microservices_service/data:/data
+    restart: always
+    depends_on:
+      - 'mongodb'
+    links:
+      - 'mongodb'

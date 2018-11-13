@@ -1,0 +1,213 @@
+version: '3.2'
+services:
+    kafka-manager:
+        image: sheepkiller/kafka-manager:latest
+        ports:
+          - "9100:9000"
+        environment:
+          - ZK_HOSTS= ${SERVICE_PREFIX}zookeeper:2181
+          - APPLICATION_SECRET= letmein
+          - KM_ARGS= -Djava.net.preferIPv4Stack=true
+        depends_on:
+          - zookeeper
+        links:
+          - zookeeper
+
+    redis:
+        build: ./redis
+        image: heldic/redis
+        ports:
+            - "6379:6379"
+
+    mqtt-gateway-nodejs:
+        build: ./mqtt-gateway-nodejs
+        image: heldic/mqtt-gateway-nodejs
+        environment:
+            - KAFKA= ${SERVICE_PREFIX}kafka:9092
+            - ZOOKEEPER= ${SERVICE_PREFIX}zookeeper:2181
+            - REDIS= ${SERVICE_PREFIX}redis:6379
+            #AUTOSCALING: "200m:1:2:30"
+        ports:
+            - "1883:1883"
+        depends_on:
+          - zookeeper
+          - kafka
+          - redis
+        links:
+          - zookeeper
+          - kafka
+          - redis
+
+    ws-gateway-nodejs:
+        build: ./ws-gateway-nodejs
+        image: heldic/ws-gateway-nodejs
+        ulimits:
+            nproc: 65535
+            nofile: 90000
+        ports:
+            - "8765:8765"
+        environment:
+            - KAFKA= ${SERVICE_PREFIX}kafka:9092
+            - ZOOKEEPER= ${SERVICE_PREFIX}zookeeper:2181
+            #AUTOSCALING: "200m:1:2:30"
+        depends_on:
+          - zookeeper
+          - kafka
+        links:
+          - zookeeper
+          - kafka
+    ws-gateway-go:
+        build: ./ws-gateway-go
+        image: heldic/ws-gateway-go
+        ulimits:
+            nproc: 65535
+            nofile: 90000
+        ports:
+            - "8766:8766"
+        environment:
+            - KAFKA= ${SERVICE_PREFIX}kafka:9092
+            - ZOOKEEPER= ${SERVICE_PREFIX}zookeeper:2181
+        depends_on:
+          - zookeeper
+          - kafka
+        links:
+          - zookeeper
+          - kafka
+    http-gateway-nodejs:
+        build: ./http-gateway-nodejs
+        image: heldic/http-gateway-nodejs
+        ports:
+            - "8083:8083"
+        environment:
+            - KAFKA= ${SERVICE_PREFIX}kafka:9092
+            - ZOOKEEPER= ${SERVICE_PREFIX}zookeeper:2181
+            #AUTOSCALING: "200m:1:2:30"
+        depends_on:
+          - zookeeper
+          - kafka
+        links:
+          - zookeeper
+          - kafka
+    http-gateway-go:
+        build: ./http-gateway-go
+        image: heldic/http-gateway-go
+        ports:
+            - "8084:8084"
+        environment:
+            - KAFKA= ${SERVICE_PREFIX}kafka:9092
+            - ZOOKEEPER= ${SERVICE_PREFIX}zookeeper:2181
+        depends_on:
+          - zookeeper
+          - kafka
+        links:
+          - zookeeper
+          - kafka
+    mariadb:
+        image: mariadb:10
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD= mP6AMBTSSElsq1oQttZ1
+            - MYSQL_DATABASE= backend
+            - MYSQL_USER=backend
+            - MYSQL_PASSWORD= qmJDiqlAr9Fcu5Rav0XJ
+
+    iotcore-backend:
+        build: ./iotcore-backend
+        image: heldic/iotcore-backend
+        ports:
+            - "3000:3000"
+        environment:
+            - MARIADB= ${SERVICE_PREFIX}mariadb${EXPOSED_SUFFIX}:3306
+            - KAFKA= ${SERVICE_PREFIX}kafka:9092
+            - ZOOKEEPER= ${SERVICE_PREFIX}zookeeper:2181
+            - ELASTICSEARCH= ${SERVICE_PREFIX}elasticsearch:9200
+            - ELASTICSEARCH_BIN_PORT= "9300"
+            - FLINK= ${SERVICE_PREFIX}flink${EXPOSED_SUFFIX}:8081
+        depends_on:
+          - mariadb
+          - elasticsearch
+          - flink$
+          - zookeeper
+          - kafka
+        links:
+          - mariadb
+          - elasticsearch
+          - flink$
+          - zookeeper
+          - kafka
+    iotcore-frontend:
+        build: ./iotcore-frontend
+        image: heldic/iotcore-frontend
+        ports:
+            - "8080:80"
+        environment:
+            - IOTCORE_BACKEND= ${SERVICE_PREFIX}iotcore-backend${EXPOSED_SUFFIX}:3000
+        depends_on:
+          - iotcore-backend
+        links:
+          - iotcore-backend
+
+    zookeeper:
+        image: wurstmeister/zookeeper:latest
+        ports:
+            - "2181:2181"
+
+    kafka:
+        image: wurstmeister/kafka:2.11-0.11.0.2
+        ports:
+            - "9092:9092"
+            - "9094:9094"
+        environment:
+            - KAFKA_ZOOKEEPER_CONNECT= ${SERVICE_PREFIX}zookeeper:2181
+            - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP= INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+            - KAFKA_ADVERTISED_LISTENERS= INSIDE://${SERVICE_PREFIX}${SERVICE_NAME}:9092,OUTSIDE://_{HOSTNAME_COMMAND}:9094
+            - KAFKA_LISTENERS= INSIDE://:9092,OUTSIDE://:9094
+            - KAFKA_INTER_BROKER_LISTENER_NAME= INSIDE
+            - KAFKA_AUTO_CREATE_TOPICS_ENABLE= 'false'
+            - HOSTNAME_COMMAND= "docker info | grep ^Name | cut -d' ' -f 2"
+        depends_on:
+          - zookeeper
+        links:
+          - zookeeper
+    flink:
+        image: flink:1.5-alpine
+        ports:
+            - "8081:8081"
+            - "6123"
+            - "6124"
+            - "6125"
+        command: jobmanager
+        environment:
+            - JOB_MANAGER_RPC_ADDRESS= ${SERVICE_PREFIX}flink
+
+    taskmanager:
+        image: flink:1.5-alpine
+        depends_on:
+            - flink
+        command: taskmanager
+        environment:
+            - JOB_MANAGER_RPC_ADDRESS= ${SERVICE_PREFIX}flink
+            - TASK_MANAGER_NUMBER_OF_TASK_SLOTS= "100"
+        depends_on:
+          - flink
+        links:
+          - flink
+    elasticsearch:
+        build: ./elasticsearch
+        image: heldic/elasticsearch
+        ports:
+            - "9000:9200"
+            - "9200"
+            - "9300"
+
+    kibana:
+        image: kibana:5
+        environment:
+            - ELASTICSEARCH_URL= http://${SERVICE_PREFIX}elasticsearch:9200
+        ports:
+            - "5601:5601"
+        depends_on:
+          - elasticsearch
+        links:
+          - elasticsearch

@@ -1,0 +1,2248 @@
+basePath: /
+definitions:
+  TERMINUS.AWSConfigStruct:
+    properties:
+      AwsAccessKeyId:
+        type: string
+      AwsSecretAccessKey:
+        type: string
+      KeyName:
+        type: string
+      Region:
+        type: string
+      SecurityGroup:
+        type: string
+      SubnetId:
+        type: string
+    type: object
+  TERMINUS.Ec2Instances:
+    properties:
+      AvailabilityZone:
+        type: string
+      CoreCount:
+        type: integer
+      ImageId:
+        type: string
+      InstanceId:
+        type: string
+      InstanceState:
+        type: string
+      InstanceType:
+        type: string
+      LaunchTime:
+        type: string
+      PublicIpAddress:
+        type: string
+    type: object
+  TERMINUS.EventObjectItems:
+    properties:
+      firstTimestamp:
+        type: string
+      kind:
+        type: string
+      lastTimestamp:
+        type: string
+      message:
+        type: string
+      reason:
+        type: string
+    type: object
+  TERMINUS.ExperimentSetting:
+    properties:
+      ExperimentNum:
+        type: string
+      Instances:
+        items:
+          $ref: '#/definitions/TERMINUS.InstancesData'
+        type: array
+      InstancesBootTime:
+        $ref: '#/definitions/TERMINUS.InstanceTime'
+        type: object
+      InstancesShutDownTime:
+        $ref: '#/definitions/TERMINUS.InstanceTime'
+        type: object
+      NumInstances:
+        type: integer
+      TotalInstancesBootTime:
+        type: integer
+      TotalInstancesShutDownTime:
+        type: integer
+    type: object
+  TERMINUS.ExperimentsLoop:
+    properties:
+      Experiments:
+        items:
+          $ref: '#/definitions/TERMINUS.ExperimentSetting'
+        type: array
+    type: object
+  TERMINUS.InstanceBootShutdownRate:
+    properties:
+      BootTime:
+        $ref: '#/definitions/TERMINUS.InstanceTime'
+        type: object
+      NumExperiments:
+        type: integer
+      NumInstances:
+        type: integer
+      ShutdownTime:
+        $ref: '#/definitions/TERMINUS.InstanceTime'
+        type: object
+    type: object
+  TERMINUS.InstanceRegression:
+    properties:
+      InstanceType:
+        type: string
+      InstanceValues:
+        items:
+          $ref: '#/definitions/TERMINUS.InstanceValue'
+        type: array
+      Region:
+        type: string
+    type: object
+  TERMINUS.InstanceTime:
+    properties:
+      Avg:
+        type: number
+      Max:
+        type: integer
+      Min:
+        type: integer
+    type: object
+  TERMINUS.InstanceValue:
+    properties:
+      BootTime:
+        type: string
+      NumInstances:
+        type: integer
+      ShutDownTime:
+        type: string
+    type: object
+  TERMINUS.InstancesData:
+    properties:
+      Other:
+        type: integer
+      Pending:
+        type: integer
+      Running:
+        type: integer
+      ShuttingDown:
+        type: integer
+      SshLogin:
+        type: integer
+      Stopped:
+        type: integer
+      Terminated:
+        type: integer
+    type: object
+  TERMINUS.KubeEventsMongoStoreObject:
+    properties:
+      AppName:
+        type: string
+      AppType:
+        type: string
+      KubeEvents:
+        items:
+          $ref: '#/definitions/TERMINUS.EventObjectItems'
+        type: array
+      Name:
+        type: string
+      Replicas:
+        type: string
+      TotalTime:
+        type: string
+    type: object
+  TERMINUS.LimitsInfo:
+    properties:
+      Cpu_cores:
+        type: number
+      Mem_gb:
+        type: number
+      Request_per_sercond:
+        type: number
+    type: object
+  TERMINUS.MSCDetails:
+    properties:
+      Experimental:
+        type: number
+      RegBruteForce:
+        type: number
+      RegSmart:
+        type: number
+    type: object
+  TERMINUS.MSCInfo:
+    properties:
+      Maximum_service_capacity_per_min:
+        $ref: '#/definitions/TERMINUS.MSCDetails'
+        type: object
+      Maximum_service_capacity_per_sec:
+        $ref: '#/definitions/TERMINUS.MSCDetails'
+        type: object
+      Pod_boot_time_ms:
+        type: number
+      PredictedReplicas:
+        type: number
+      Replicas:
+        type: number
+      Sd_Pod_boot_time_ms:
+        type: number
+    type: object
+  TERMINUS.MSCProfiles:
+    properties:
+      Limits:
+        $ref: '#/definitions/TERMINUS.LimitsInfo'
+        type: object
+      MSCs:
+        items:
+          $ref: '#/definitions/TERMINUS.MSCInfo'
+        type: array
+    type: object
+  TERMINUS.MSCValueObject:
+    properties:
+      HostInstanceType:
+        type: string
+      MainServiceName:
+        type: string
+      Profiles:
+        items:
+          $ref: '#/definitions/TERMINUS.MSCProfiles'
+        type: array
+      ServiceName:
+        type: string
+      ServiceType:
+        type: string
+      TestAPI:
+        type: string
+    type: object
+  TERMINUS.NodeValues:
+    properties:
+      Cores:
+        items:
+          type: float64
+        type: array
+      CpuUtil:
+        items:
+          type: float64
+        type: array
+      InstanceType:
+        type: string
+      Mem:
+        items:
+          type: float64
+        type: array
+      MemUtil:
+        items:
+          type: float64
+        type: array
+      PodValues:
+        items:
+          $ref: '#/definitions/TERMINUS.PodValues'
+        type: array
+      Requests:
+        items:
+          type: float64
+        type: array
+      Timestamps:
+        items:
+          type: int64
+        type: array
+    type: object
+  TERMINUS.PodBootingTimeStruct:
+    properties:
+      AppName:
+        type: string
+      AppType:
+        type: string
+      MeanBootingTime:
+        type: number
+      NumTests:
+        type: integer
+      Replicas:
+        type: number
+      SdBootingTime:
+        type: number
+    type: object
+  TERMINUS.PodValues:
+    properties:
+      CpuLimit:
+        items:
+          type: float64
+        type: array
+      CpuRequest:
+        items:
+          type: float64
+        type: array
+      CpuUtil:
+        items:
+          type: float64
+        type: array
+      MemLimit:
+        items:
+          type: float64
+        type: array
+      MemRequest:
+        items:
+          type: float64
+        type: array
+      MemUtil:
+        items:
+          type: float64
+        type: array
+      PodName:
+        type: string
+      Timestamps:
+        items:
+          type: int64
+        type: array
+    type: object
+  TERMINUS.RequestsData:
+    properties:
+      InstanceType:
+        type: string
+      ReqDurationMax:
+        items:
+          type: float64
+        type: array
+      ReqDurationMean:
+        items:
+          type: float64
+        type: array
+      ReqDurationMedian:
+        items:
+          type: float64
+        type: array
+      ReqDurationMin:
+        items:
+          type: float64
+        type: array
+      ReqDurationPercentile90:
+        items:
+          type: float64
+        type: array
+      ReqDurationPercentile95:
+        items:
+          type: float64
+        type: array
+      Requests:
+        items:
+          type: float64
+        type: array
+      Timestamps:
+        items:
+          type: int64
+        type: array
+      Vus:
+        items:
+          type: float64
+        type: array
+    type: object
+  TERMINUS.TestInformation:
+    properties:
+      AppName:
+        type: string
+      ContainerName:
+        type: string
+      EndTimestamp:
+        type: integer
+      Grafana:
+        type: string
+      InfluxDbK6Name:
+        type: string
+      InfluxDbK8sName:
+        type: string
+      Kibana:
+        type: string
+      LimitingInstanceType:
+        type: string
+      Limits:
+        type: string
+      Logs:
+        type: string
+      MasterInstanceType:
+        type: string
+      NodeCount:
+        type: string
+      NodeInstanceType:
+        type: string
+      NumMicroSvs:
+        type: string
+      Phase:
+        type: string
+      Replicas:
+        type: string
+      StartTimestamp:
+        type: integer
+      TestAPI:
+        type: string
+      TestIter:
+        type: string
+      TestVMIP:
+        type: string
+      TypeApp:
+        type: string
+    type: object
+  TERMINUS.VMBootShutDownRatePerInstanceTypeAll:
+    properties:
+      InstanceValues:
+        items:
+          $ref: '#/definitions/TERMINUS.InstanceValue'
+        type: array
+    type: object
+  TERMINUS.VMBootShutDownRatePerInstanceTypeOne:
+    properties:
+      BootTime:
+        type: string
+      ShutDownTime:
+        type: string
+    type: object
+  TERMINUS.VmTemplateData:
+    properties:
+      AvailabilityZone:
+        type: string
+      BootShutdownRate:
+        items:
+          $ref: '#/definitions/TERMINUS.InstanceBootShutdownRate'
+        type: array
+      CoreCount:
+        type: integer
+      ExperimentLoop:
+        items:
+          $ref: '#/definitions/TERMINUS.ExperimentsLoop'
+        type: array
+      ImageId:
+        type: string
+      InstanceType:
+        type: string
+      Region:
+        type: string
+    type: object
+host: localhost:8082
+info:
+  contact:
+    email: anshul.jindal@tum.de
+    name: Anshul Jindal
+  description: This is the api page for all APIs in TERMINUS
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  title: TERMINUSINTF APIs
+  version: "1.0"
+paths:
+  /analyzeKubeEvents/{apptype}/{appname}/:
+    get:
+      consumes:
+      - text/html
+      description: Analyze the kube events stored in db from conducting pod booting
+        time test and store them back to db
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: completed
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Analyze the kube events stored in db from conducting pod booting time
+        test and store them back to db
+      tags:
+      - POD
+  ? /collectDataLimits/{numsvs}/{nodecount}/{replicas}/{instancetype}/{maxRPS}/{limitinginstancetype}/{apptype}/{appname}/{apiendpoint}
+  : get:
+      consumes:
+      - text/html
+      description: Collect the non limits data for an application on a VM /collectDataLimits/1/1/1/t2.medium/350/t2.nano/dbaccess/movieapp/_api_movies
+      parameters:
+      - description: number of services in microservice
+        in: query
+        name: numsvs
+        required: true
+        type: string
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'number of replicas of service '
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: ' host instance type '
+        in: query
+        name: instancetype
+        required: true
+        type: string
+      - description: ' limitinginstancetype instance type on main instance'
+        in: query
+        name: limitinginstancetype
+        required: true
+        type: string
+      - description: ' api end point specify like _api_test for /api/test'
+        in: query
+        name: apiendpoint
+        required: true
+        type: string
+      - description: ' max RPS'
+        in: query
+        name: maxRPS
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Collect the non limits data for an application on a VM
+      tags:
+      - START_TEST
+  /collectDataNoLimits/{numsvs}/{nodecount}/{replicas}/{instancetype}/{maxRPS}/{apptype}/{appname}/{apiendpoint}:
+    get:
+      consumes:
+      - text/html
+      description: Collect the non limits data for an application on a VM /collectDataNoLimits/1/1/1/t2.nano/3000/web/webacapp/_api_web
+      parameters:
+      - description: number of services in microservice
+        in: query
+        name: numsvs
+        required: true
+        type: string
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'number of replicas of service '
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: ' host instance type '
+        in: query
+        name: instancetype
+        required: true
+        type: string
+      - description: ' api end point specify like _api_test for /api/test'
+        in: query
+        name: apiendpoint
+        required: true
+        type: string
+      - description: ' max RPS '
+        in: query
+        name: maxRPS
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Collect the non limits data for an application on a VM
+      tags:
+      - START_TEST
+  ? /conductTestToCalculatePodBootTime/{numsvs}/{nodecount}/{replicas}/{instancetype}/{maxRPS}/{limitinginstancetype}/{apptype}/{appname}/{apiendpoint}/
+  : get:
+      consumes:
+      - text/html
+      description: Collect the data for pod botting time /conductTestToCalculatePodBootTime/1/1/1/t2.xlarge/40/t2.large/compute/primeapp/_api_prime
+      parameters:
+      - description: number of services in microservice
+        in: query
+        name: numsvs
+        required: true
+        type: string
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'number of replicas of service '
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: ' host instance type '
+        in: query
+        name: instancetype
+        required: true
+        type: string
+      - description: ' limitinginstancetype instance type on main instance'
+        in: query
+        name: limitinginstancetype
+        required: true
+        type: string
+      - description: ' api end point specify like _api_test for /api/test'
+        in: query
+        name: apiendpoint
+        required: true
+        type: string
+      - description: ' max RPS'
+        in: query
+        name: maxRPS
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Collect the data for pod botting time
+      tags:
+      - START_TEST
+  /doBruteForceTraining/{apptype}/{appname}/{mainservicename:
+    get:
+      consumes:
+      - text/html
+      description: Do brute force training for a particular app
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Started
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Do brute force training for a particular app
+      tags:
+      - TRAINING_MSC
+  /doBruteForceTrainingReplicas/{apptype}/{appname}/{mainservicename:
+    get:
+      consumes:
+      - text/html
+      description: Do brute force training for replicas prediction for a particular
+        app
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Started
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Do brute force training for replicas prediction for a particular app
+      tags:
+      - TRAINING_MSC
+  /doSmartTestAllTraining/{apptype}/{appname}/{mainservicename:
+    get:
+      consumes:
+      - text/html
+      description: Do smart training for a particular app
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Started
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Do smart training for a particular app
+      tags:
+      - TRAINING_MSC
+  /getAllExperimentalTRN:
+    get:
+      consumes:
+      - text/html
+      description: Get all MSC experimental, predicted and smart along with replicas
+        predicted for all apps from DB
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.MSCValueObject'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get all MSC experimental, predicted and smart along with replicas predicted
+        for all apps from DB
+      tags:
+      - GET_ANALYZED_MSCs
+  /getAllTestsInfo:
+    get:
+      consumes:
+      - text/html
+      description: Get all ongoing test information
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.TestInformation'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get all ongoing test information
+      tags:
+      - GENERAL
+  /getAllVMTypesBootShutDownDataAvg:
+    get:
+      consumes:
+      - text/html
+      description: Gives all the Booting and shutting down data following avg approach
+      parameters:
+      - description: specify it yes if to take walues from the db and update the resulting
+          average
+        in: query
+        name: takeNewValues
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.VmTemplateData'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Gives all the Booting and shutting down data following avg approach
+      tags:
+      - INSTANCE_VM_BOOTING_TIME
+  /getAllVMTypesBootShutDownDataRegression:
+    get:
+      consumes:
+      - text/html
+      description: Gives all the Booting and shutting down data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.InstanceRegression'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Gives all the Booting and shutting down data
+      tags:
+      - INSTANCE_VM_BOOTING_TIME
+  /getAnalyzedKubeEvents/{apptype}/{appname}/:
+    get:
+      consumes:
+      - text/html
+      description: Get Analyzed Kube events from db
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.KubeEventsMongoStoreObject'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get Analyzed Kube events from db
+      tags:
+      - POD
+  /getAppNames/{apptype}:
+    get:
+      consumes:
+      - text/html
+      description: Get App Names based on app type
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/string'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get App Names based on app type
+      tags:
+      - GENERAL
+  /getAppTypes:
+    get:
+      consumes:
+      - text/html
+      description: Get App Types
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/string'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get App Types
+      tags:
+      - GENERAL
+  /getExperimentalTRNsMongoDB/{apptype}/{appname}/{mainservicename}{hostinstance}:
+    get:
+      consumes:
+      - text/html
+      description: Get all MSC experimental, predicted and smart along with replicas
+        predicted for an app on a particular instance type from DB
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: type of host instance
+        in: query
+        name: hostinstance
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.MSCValueObject'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get all MSC experimental, predicted and smart along with replicas predicted
+        for an app on a particular instance type from DB
+      tags:
+      - GET_ANALYZED_MSCs
+  /getExperimentalTRNsMongoDBAll/{apptype}/{appname}/{mainservicename}:
+    get:
+      consumes:
+      - text/html
+      description: Get all MSC experimental, predicted and smart along with replicas
+        predicted for an app from DB
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.MSCValueObject'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get all MSC experimental, predicted and smart along with replicas predicted
+        for an app from DB
+      tags:
+      - GET_ANALYZED_MSCs
+  /getInstancesPerfData/{apptype}/{appname}/{mainservicename}/{comparinginstance}/{replicas}/{hostinstance}:
+    get:
+      consumes:
+      - text/html
+      description: Get the resources data for that particular instance from all host
+        instances on which it can be possible deployed and also the actual VM performance
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'number of replicas of service '
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: ' Instance to compare '
+        in: query
+        name: comparinginstance
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.NodeValues'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get the resources data for that particular instance from all host instances
+        on which it can be possible deployed and also the actual VM performance
+      tags:
+      - CONDUCTED_EXPERIMENTS_DATA_MSC
+  /getInstancesRequestsData/{apptype}/{appname}/{mainservicename}/{comparinginstance}/{replicas}/{hostinstance}:
+    get:
+      consumes:
+      - text/html
+      description: Get the requests data for that particular instance from the given
+        host instance on which it is deployed along with the actual Instance data
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'number of replicas of service '
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: ' hostinstance on which the comparing instance is deployed '
+        in: query
+        name: hostinstance
+        required: true
+        type: string
+      - description: ' Instance to compare '
+        in: query
+        name: comparinginstance
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.RequestsData'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get the requests data for that particular instance from the given host
+        instance on which it is deployed along with the actual Instance data
+      tags:
+      - CONDUCTED_EXPERIMENTS_DATA_MSC
+  /getPerVMTypeAllBootShutDownData:
+    get:
+      consumes:
+      - text/html
+      description: Gives all the Booting and shutting down data
+      parameters:
+      - description: instance type
+        in: query
+        name: instanceType
+        required: true
+        type: string
+      - description: 'aws region '
+        in: query
+        name: region
+        required: true
+        type: string
+      - description: appraoch avg or regression_vm_boot, by default it is avg
+        in: query
+        name: appraoch
+        required: true
+        type: string
+      - description: cloud service provider..current;y it is aws only
+        in: query
+        name: csp
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/TERMINUS.VMBootShutDownRatePerInstanceTypeAll'
+            type: object
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Gives all the Booting and shutting down data for a VM type
+      tags:
+      - INSTANCE_VM_BOOTING_TIME_EXTERNAL_USE
+  /getPerVMTypeOneBootShutDownData:
+    get:
+      consumes:
+      - text/html
+      description: Gives all the Booting and shutting down data
+      parameters:
+      - description: number of instances
+        in: query
+        name: numInstances
+        required: true
+        type: string
+      - description: instance type
+        in: query
+        name: instanceType
+        required: true
+        type: string
+      - description: 'aws region '
+        in: query
+        name: region
+        required: true
+        type: string
+      - description: appraoch avg or regression, by default it is avg
+        in: query
+        name: appraoch
+        required: true
+        type: string
+      - description: cloud service provider..current;y it is aws only
+        in: query
+        name: csp
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/TERMINUS.VMBootShutDownRatePerInstanceTypeOne'
+            type: object
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Gives all the Booting and shutting down data for a VM type
+      tags:
+      - INSTANCE_VM_BOOTING_TIME_EXTERNAL_USE
+  /getPodBootingTime/{apptype}/{appname}/:
+    get:
+      consumes:
+      - text/html
+      description: Get Analyzed Kube events from db
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.PodBootingTimeStruct'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get Pod Booting time from db
+      tags:
+      - POD
+  /getPredictedRegressionReplicas/{apptype}/{appname}/{mainservicename}{msc}/{numcoresutil}/{numcoreslimit}/{nummemlimit}:
+    get:
+      consumes:
+      - text/html
+      description: Get Number of replicas predicted
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'msc expected per seconds (RPS) '
+        in: query
+        name: msc
+        required: true
+        type: string
+      - description: num of cores utilization
+        in: query
+        name: numcoresutil
+        required: true
+        type: string
+      - description: num of cores limit
+        in: query
+        name: numcoreslimit
+        required: true
+        type: string
+      - description: num of mem limit
+        in: query
+        name: nummemlimit
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Predicted MSC replicas
+          schema:
+            $ref: '#/definitions/TERMINUS.MSCInfo'
+            type: object
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get Number of replicas predicted
+      tags:
+      - GET_ANALYZED_MSCs
+  /getPredictedRegressionTRN/{apptype}/{appname}/{mainservicename}{replicas}/{numcoresutil}/{numcoreslimit}/{nummemlimit}:
+    get:
+      consumes:
+      - text/html
+      description: Get predicted MSC value based on the inputs
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: replicas for application
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: num of cores utilization
+        in: query
+        name: numcoresutil
+        required: true
+        type: string
+      - description: num of cores limit
+        in: query
+        name: numcoreslimit
+        required: true
+        type: string
+      - description: num of mem limit
+        in: query
+        name: nummemlimit
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Predicted MSC replicas
+          schema:
+            $ref: '#/definitions/TERMINUS.MSCInfo'
+            type: object
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get predicted MSC value based on the inputs (in seconds)
+      tags:
+      - GET_ANALYZED_MSCs
+  /getPredictedRegressionTRNSmart/{apptype}/{appname}/{mainservicename}{numcoresutil}{nummemutil}{testname}:
+    get:
+      consumes:
+      - text/html
+      description: Get Number of replicas predicted for a particular test
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: name of the test
+        in: query
+        name: testname
+        required: true
+        type: string
+      - description: num of cores utilization
+        in: query
+        name: numcoresutil
+        required: true
+        type: string
+      - description: num of mem limit
+        in: query
+        name: nummemUtil
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Predicted MSC
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get MSC prediction based on smart test for a particular test
+      tags:
+      - GET_ANALYZED_MSCs
+  /getRMSErrorMongoDB/{apptype}/{appname}/{mainservicename}:
+    get:
+      consumes:
+      - text/html
+      description: Get  RMS error trained using the brute force
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/TERMINUS.MSCValueObject'
+            type: object
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get  RMS error trained using the brute force
+      tags:
+      - GET_ANALYZED_MSCs
+  /getRegressionTRNsMongoDBAll/{apptype}/{appname}/{mainservicename}:
+    get:
+      consumes:
+      - text/html
+      description: Get  MSCs for different configurations predicted for an app  using
+        regression
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/TERMINUS.MSCValueObject'
+            type: object
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get  MSCs for different configurations predicted for an app  using
+        regression
+      tags:
+      - GET_ANALYZED_MSCs
+  ? /getRelevantInstanceActualInstanceDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{hostinstance}/{comparinginstance}/{replicas}
+  : get:
+      consumes:
+      - text/html
+      description: Get the resources data for that particular instance from the given
+        host instance on which it is deployed along with the actual Instance data
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'number of replicas of service '
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: ' hostinstance on which the comparing instance is deployed '
+        in: query
+        name: hostinstance
+        required: true
+        type: string
+      - description: ' Instance to compare '
+        in: query
+        name: comparinginstance
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.NodeValues'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get the resources data for that particular instance from the given
+        host instance on which it is deployed along with the actual Instance data
+      tags:
+      - CONDUCTED_EXPERIMENTS_DATA_MSC
+  ? /getRelevantInstanceActualInstanceRequestsDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{hostinstance}/{comparinginstance}/{replicas}
+  : get:
+      consumes:
+      - text/html
+      description: Get the requests data for that particular instance from the given
+        host instance on which it is deployed along with the actual Instance data
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'number of replicas of service '
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: ' hostinstance on which the comparing instance is deployed '
+        in: query
+        name: hostinstance
+        required: true
+        type: string
+      - description: ' Instance to compare '
+        in: query
+        name: comparinginstance
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.RequestsData'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get the requests data for that particular instance from the given host
+        instance on which it is deployed along with the actual Instance data
+      tags:
+      - CONDUCTED_EXPERIMENTS_DATA_MSC
+  /getRelevantInstanceDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{hostinstance}/{comparinginstance}/{replicas}:
+    get:
+      consumes:
+      - text/html
+      description: Get the resources data for that particular instance from the given
+        host instance on which it is deployed
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'number of replicas of service '
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: ' hostinstance on which the comparing instance is deployed '
+        in: query
+        name: hostinstance
+        required: true
+        type: string
+      - description: ' Instance to compare '
+        in: query
+        name: comparinginstance
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.NodeValues'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get the resources data for that particular instance from the given
+        host instance on which it is deployed
+      tags:
+      - CONDUCTED_EXPERIMENTS_DATA_MSC
+  ? /getRelevantInstanceRequestsDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{hostinstance}/{comparinginstance}/{replicas}
+  : get:
+      consumes:
+      - text/html
+      description: Get the Requests data for that particular instance from the given
+        host instance on which it is deployed
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'number of replicas of service '
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: ' hostinstance on which the comparing instance is deployed '
+        in: query
+        name: hostinstance
+        required: true
+        type: string
+      - description: ' Instance to compare '
+        in: query
+        name: comparinginstance
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.RequestsData'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get the Requests data for that particular instance from the given host
+        instance on which it is deployed
+      tags:
+      - CONDUCTED_EXPERIMENTS_DATA_MSC
+  /getRelevantInstancesActualInstanceDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{comparinginstance}/{replicas}:
+    get:
+      consumes:
+      - text/html
+      description: Get the resources data for that particular instance from all host
+        instances on which it can be possible deployed and also the actual VM performance
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'number of replicas of service '
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: ' Instance to compare '
+        in: query
+        name: comparinginstance
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.NodeValues'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get the resources data for that particular instance from all host instances
+        on which it can be possible deployed and also the actual VM performance
+      tags:
+      - CONDUCTED_EXPERIMENTS_DATA_MSC
+  ? /getRelevantInstancesActualInstanceRequestsDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{comparinginstance}/{replicas}
+  : get:
+      consumes:
+      - text/html
+      description: Get the requests data for that particular instance from all host
+        instances on which it can be possible deployed and also the actual VM performance
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'number of replicas of service '
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: ' Instance to compare '
+        in: query
+        name: comparinginstance
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.RequestsData'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get the requests data for that particular instance from all host instances
+        on which it can be possible deployed and also the actual VM performance
+      tags:
+      - CONDUCTED_EXPERIMENTS_DATA_MSC
+  /getRelevantInstancesDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{comparinginstance}/{replicas}:
+    get:
+      consumes:
+      - text/html
+      description: Get the resources data for that particular instance from all host
+        instances on which it it can be possible deployed
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'number of replicas of service '
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: ' Instance to compare '
+        in: query
+        name: comparinginstance
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.NodeValues'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get the resources data for that particular instance from all host instances
+        on which it can be possible deployed
+      tags:
+      - CONDUCTED_EXPERIMENTS_DATA_MSC
+  /getRelevantInstancesRequestsDataBasedOnLimits/{apptype}/{appname}/{comparinginstance}/{replicas}:
+    get:
+      consumes:
+      - text/html
+      description: Get the Requests data for that particular instance from all host
+        instances on which it it can be possible deployed
+      parameters:
+      - description: name of application[primeapp, movieapp, webacapp]
+        in: query
+        name: appname
+        required: true
+        type: string
+      - description: application type[compute, dbaccess, web]
+        in: query
+        name: apptype
+        required: true
+        type: string
+      - description: 'number of replicas of service '
+        in: query
+        name: replicas
+        required: true
+        type: string
+      - description: ' Instance to compare '
+        in: query
+        name: comparinginstance
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.RequestsData'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get the Request data for that particular instance from all host instances
+        on which it can be possible deployed
+      tags:
+      - CONDUCTED_EXPERIMENTS_DATA_MSC
+  /getandStoreRegressionValues:
+    get:
+      consumes:
+      - text/html
+      description: Query python regression_vm_boot to get the values for each instance
+        type and then store in db
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Done
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Query python regression_vm_boot to get the values for each instance
+        type and then store in db
+      tags:
+      - INSTANCE_VM_BOOTING_TIME
+  /initUserConfig:
+    post:
+      consumes:
+      - application/json
+      description: Initialize User KOPS Configuration
+      parameters:
+      - description: '...'
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/TERMINUS.AWSConfigStruct'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Initialize User KOPS Configuration
+      tags:
+      - internalUse
+  /listAllInstances:
+    get:
+      consumes:
+      - text/html
+      description: List all instances on AWS
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.Ec2Instances'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: List all instances on AWS
+      tags:
+      - internalUse
+  /storeAllExperimentalTRN:
+    get:
+      consumes:
+      - text/html
+      description: Get and store all MSC experimental, predicted and smart along with
+        replicas predicted in DB
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Completed
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get and store all MSC experimental, predicted and smart along with
+        replicas predicted in DB
+      tags:
+      - STORE_MSCs
+  /storeAllTRNRegressionIntoMongo:
+    get:
+      consumes:
+      - text/html
+      description: Get and store all MSC predicted  in DB
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Completed
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Get and store all MSC predicted  in DB
+      tags:
+      - STORE_MSCs
+  /testInstanceBootingShuttingTime:
+    get:
+      consumes:
+      - text/html
+      description: Conducts the VM booting and shutting down experiment
+      parameters:
+      - description: number of instances
+        in: query
+        name: numInstances
+        required: true
+        type: string
+      - description: total number of experiments to conduct
+        in: query
+        name: totalExperiments
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: started
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Conducts the VM booting and shutting down experiment
+      tags:
+      - INSTANCE_VM_BOOTING_TIME
+  /trainDataSetRegression:
+    get:
+      consumes:
+      - text/html
+      description: train the dataset
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Started
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Train the dataset
+      tags:
+      - INSTANCE_VM_BOOTING_TIME
+swagger: "2.0"

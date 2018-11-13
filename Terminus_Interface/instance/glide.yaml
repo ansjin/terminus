@@ -1,0 +1,15 @@
+package: thesis/INSTANCE
+import:
+- package: github.com/aws/aws-sdk-go
+  subpackages:
+  - aws
+  - aws/awserr
+  - aws/credentials
+  - aws/session
+  - service/cloudwatch
+  - service/ec2
+- package: github.com/gorilla/mux
+- package: golang.org/x/crypto
+  subpackages:
+  - ssh
+- package: gopkg.in/mgo.v2

@@ -1,0 +1,119 @@
+{{define "content"}}
+
+<!-- Right Panel -->
+
+<div id="right-panel" class="right-panel">
+
+    <!-- Header-->
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Approaches </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li><a href="#">Extras</a></li>
+                        <li><a href="#">Approaches</a></li>
+                        <li class="active">VM Booting Time</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div >
+
+        <div  style="margin-left: 20px; padding: 10px ">
+            <div  style="text-align: justify">
+                <p>
+                    In cloud computing environments the performance measurements can vary significantly.
+                    This may be due to being assigned different physical systems across different experiments at
+                    different times or, the performance may be impacted due to sharing, in this case variations occur due
+                    to other applications that are executing on the same physical hosts (e.g., affecting disk through put)
+                    or elsewhere in the same cloud environment (possibly affecting network latencies or throughput).
+                    When conducting a comparison of two or more competing alternatives, care must be taken to ensure that
+                    any differences in performance are due only to the differences in alternatives and not because,
+                    one alternative might be executing in a more favorable environment (e.g., in the absence of other
+                    applications running on the same node or on a faster node). Therefore, here we have used Randomized
+                    Multiple Interleaved Trials (RMIT) to record the booting and shutting down time for the VMs as suggested in <a href="https://cs.uwaterloo.ca/~brecht/papers/icpe-rmit-2017.pdf" target="_blank">this</a> paper.
+                </p>
+                <p>
+                    We perform this separately for different types of instances to keep the homogeneity of instances.
+                    For every experiment iteration we randomly choose 5 numbers between 1 and 5 and start those many number of
+                    instances and, record their booting and shutting-down time and save to database.
+                    Then we repeat the experiment 5 more times as shown in below figure.
+                    Here the number in boxes represent the number of instances started in that experimeny iteration.
+                    <figure>
+                        <img src="/assets/images/instance/rmit.png" style="width: 600px; display: block;    margin-left: auto;    margin-right: auto;    width: 50%;">
+                        <figcaption style="text-align: center">Fig.1 - Randomized Multiple Interleaved Trials (RMIT)</figcaption>
+                    </figure>
+                </p>
+                <p>
+                    Now, after collection of data we used two approaches to find the botting and shutting down time.<br>
+
+                <ol>
+                    <li>
+                        <b>Average accross experiments :</b>
+                        <br>
+                        Here we do the average of all the instances group (group is how many instances to start simultaneously) across experiment iterations.
+                        <br>
+
+                        For example:
+                        <br>
+
+                        If our experiment has : <br>
+                        <ul style="margin-left: 40px">
+                            <li> 2, 2 -> in Experiment Iteration 1</li>
+                            <li> 0, -> in Experiment iteration 2 </li>
+                            <li> 2 -> in Experiment Iteration 3</li>
+                            <li> 2 -> in Experiment Iteration 4</li>
+                            <li> 2 -> in Experiment Iteration 5</li>
+                        </ul>
+                        Now for calculating the time required for 2 instances to start and shutdown simultaneously, we average the booting and shutting down time for all the pair of instances across the experiment iterations which here is 5 (2+0+1+1+1)
+
+                    </li>
+                    <br>
+                    <br>
+                    <li>
+                        <b>Regression : </b> <br>
+                        In this approach we apply Polynomial regression  in which the relationship between the independent variables
+                        { CoreCount, NumInstances, Mem_gib } and the dependent variable BootingTIme and Shutting-Down Time
+                        is modelled as an nth degree polynomial. Below is the sample figure for the table
+
+                        <figure style="margin-top: 20px">
+                            <img src="assets/images/instance/regression_table.PNG" style="width:50%; display: block;     margin:0 auto">
+                            <figcaption style="text-align: center">Fig.2 - Regression Independent and Dependent Variables</figcaption>
+                        </figure>
+
+                        and below is the sample regression plot generated at different degrees for <strong>t2.medium</strong>. Degree 8 gave the least RMS error.
+
+                        <br>
+                        <figure style="margin-top: 20px">
+                            <img src="assets/images/instance/regression_graph.PNG" style="width:90%; display: block;    margin:0 auto">
+                            <figcaption style="text-align: center">Fig.3 - Regression Plot</figcaption>
+                        </figure>
+                    </li>
+                </ol>
+
+
+                </p>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+
+
+</div>
+
+
+</div><!-- /#right-panel -->
+
+
+{{end}}

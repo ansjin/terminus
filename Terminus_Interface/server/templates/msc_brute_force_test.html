@@ -1,0 +1,310 @@
+{{define "content"}}
+
+<!-- Right Panel -->
+
+<div id="right-panel" class="right-panel">
+
+    <!-- Header-->
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Conduct Test for Determining Maximum Service Capacity (Brute)</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li><a href="/">Dashboard</a></li>
+                        <li><a href="#">Conduct Test</a></li>
+                        <li class="active">MSC Determine Brute</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="content mt-3">
+        <div class="animated fadeIn">
+
+            <div class="row mt-3">
+                <div class="col-lg-12">
+                    <div class="card" >
+                        <div >
+                            <p class="mb-3" style="padding: 10px">
+                               Here conduct the Test to find The Maximum Service Capacity of a Service
+                            </p>
+                        </div>
+                    </div>
+                </div><!-- /# column -->
+            </div>
+            <div class="row mt-3">
+                <form  class="col-lg-12" name="startTestForm"  >
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Service Name</strong>
+                            </div>
+                            <div class="card-body">
+                                <select name="serviceName" data-placeholder="Select the service" class="standardSelect" tabindex="5">
+                                    <option value=""></option>
+                                    <optgroup label="Compute">
+                                        <option value="compute/primeapp/primeapp/_api_prime">Prime Sum Calculation App</option>
+                                    </optgroup>
+                                    <optgroup label="DB Access">
+                                        <option value="dbaccess/movieapp/movieapp/_api_movies">Movies Access App</option>
+                                    </optgroup>
+                                    <optgroup label="Web">
+                                        <option value="web/webacapp/webacapp/_api_web">Web Access App</option>
+                                    </optgroup>
+                                    <optgroup label="Sandbox">
+                                        <option value="sandbox/serveapp/serveapp/_test">Sandboxed Server App</option>
+                                    </optgroup>
+                                    <optgroup label="Multiple">
+                                        <option value="mix/mixalapp/serveapp/_test">Multi Services App - Server</option>
+                                    </optgroup>
+
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Replicas</strong>
+                            </div>
+                            <div class="card-body">
+
+                                <select name="replicas" data-placeholder="Select number of replicas..." class="standardSelect" tabindex="1">
+                                    <option value=""></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Limits/Non-Limits</strong>
+                            </div>
+                            <div class="card-body">
+
+                                <select name="limits" data-placeholder="Select whether with limits or not..." class="standardSelect" tabindex="1">
+                                    <option value=""></option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Main-Instance Type</strong>
+                            </div>
+                            <div class="card-body">
+
+                                <select name="mainInstanceType" data-placeholder="Select Main Instance Type..." class="standardSelect" tabindex="1">
+                                    <option value=""></option>
+                                    <option value="t2.nano">t2.nano</option>
+                                    <option value="t2.micro">t2.micro</option>
+                                    <option value="t2.small">t2.small</option>
+                                    <option value="t2.medium">t2.medium</option>
+                                    <option value="t2.large">t2.large</option>
+                                    <option value="t2.xlarge">t2.xlarge</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Limiting-Instance Types</strong>
+                            </div>
+                            <div class="card-body">
+
+                                <select name="limitingInstanceType" data-placeholder="Select Limiting Instance Type..." class="standardSelect" tabindex="1">
+                                    <option value=""></option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="500">500</option>
+                                    <option value="t2.nano">t2.nano</option>
+                                    <option value="t2.micro">t2.micro</option>
+                                    <option value="t2.small">t2.small</option>
+                                    <option value="t2.medium">t2.medium</option>
+                                    <option value="t2.large">t2.large</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Master Node Instance Type</strong>
+                            </div>
+                            <div class="card-body">
+
+                                <select name="masterType" data-placeholder="Select Master Instance Type..." class="standardSelect" tabindex="1">
+                                    <option value="t2.nano">t2.nano</option>
+                                    <option value="t2.micro">t2.micro</option>
+                                    <option value="t2.small">t2.small</option>
+                                    <option value="t2.medium">t2.medium</option>
+                                    <option  selected="selected" value="t2.large">t2.large</option>
+                                    <option value="t2.xlarge">t2.xlarge</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Deployment/Loadgen Instance Type</strong>
+                            </div>
+                            <div class="card-body">
+
+                                <select name="testInstanceType" data-placeholder="Select Deploying Instance Type..." class="standardSelect" tabindex="1">
+                                    <option value="t2.nano">t2.nano</option>
+                                    <option value="t2.micro">t2.micro</option>
+                                    <option value="t2.small">t2.small</option>
+                                    <option value="t2.medium">t2.medium</option>
+                                    <option value="t2.large">t2.large</option>
+                                    <option  selected="selected" value="t2.xlarge">t2.xlarge</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">MAX RPS</strong>
+                            </div>
+                            <div class="card-body">
+                                <select name="maxRPS" data-placeholder="Select the MAX RPS" class="standardSelect" tabindex="5">
+                                    <option value=""></option>
+                                    <option value="100">100</option>
+                                    <option value="150">150</option>
+                                    <option value="200">200</option>
+                                    <option value="250">250</option>
+                                    <option value="300">300</option>
+                                    <option value="350">350</option>
+                                    <option value="400">400</option>
+                                    <option value="450">450</option>
+                                    <option value="500">500</option>
+                                    <option value="550">550</option>
+                                    <option value="600">600</option>
+                                    <option value="700">700</option>
+                                    <option value="800">800</option>
+                                    <option value="900">900</option>
+                                    <option value="1000">1000</option>
+                                    <option value="1500">1500</option>
+                                    <option value="500">2000</option>
+                                    <option value="2000">2500</option>
+                                    <option value="500">3000</option>
+                                    <option value="3000">3500</option>
+                                    <option value="4000">4000</option>
+                                    <option value="4500">4500</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Services Number</strong>
+                            </div>
+                            <div class="card-body">
+
+                                <select name="serviceNum" data-placeholder="Select the Services Number" class="standardSelect" tabindex="5">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Node Count</strong>
+                            </div>
+                            <div class="card-body">
+
+                                <select name="nodeCount" data-placeholder="Select number of Nodes in cluster..." class="standardSelect" tabindex="1">
+                                    <option value=""></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-lg-3"  >
+                        <button id="submit-button" type="submit" class="btn btn-lg btn-info btn-block">
+                            <i class="fa fa-lock fa-lg"></i>&nbsp;
+                            <span id="payment-button-amount">Start Test</span>
+                            <span id="payment-button-sending" style="display:none;">Forming…</span>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+       </div><!-- .animated -->
+    </div><!-- .content -->
+
+
+</div><!-- /#right-panel -->
+
+<!-- Right Panel -->
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".standardSelect").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+            width: "100%"
+        });
+    });
+    $("#submit-button").click(function() {
+        let serviceName = document.forms["startTestForm"]["serviceName"].value;
+        let replicas = document.forms["startTestForm"]["replicas"].value;
+        let mainInstanceType = document.forms["startTestForm"]["mainInstanceType"].value;
+        let limitingInstanceType = document.forms["startTestForm"]["limitingInstanceType"].value;
+        let maxRPS = document.forms["startTestForm"]["maxRPS"].value;
+        let limits = document.forms["startTestForm"]["limits"].value;
+        let nodeCount = document.forms["startTestForm"]["nodeCount"].value;
+        let serviceNum = document.forms["startTestForm"]["serviceNum"].value;
+        let testInstanceType = document.forms["startTestForm"]["testInstanceType"].value;
+        let masterType = document.forms["startTestForm"]["masterType"].value;
+        let uRl = "";
+        if (limits === "yes") {
+
+            uRl = "/collectDataLimits/"+serviceNum+"/" + nodeCount + '/' + replicas + '/' + mainInstanceType + '/' + masterType  + '/' + testInstanceType + '/' + maxRPS + '/' +
+                    limitingInstanceType + '/' + serviceName ;
+        } else {
+            uRl = "/collectDataNoLimits/"+serviceNum+"/" +nodeCount + '/' + replicas + '/' + mainInstanceType + '/' + masterType  + '/' +testInstanceType + '/' + maxRPS + '/' + serviceName;
+        }
+        console.log(uRl);
+        fetch(uRl)
+                .then(response => response)
+                .then(res => {
+
+                    window.alert(res);
+
+                });
+        return false;
+    });
+    </script>
+{{end}}

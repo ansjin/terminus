@@ -1,0 +1,335 @@
+{{define "content"}}
+
+<!-- Right Panel -->
+
+<div id="right-panel" class="right-panel">
+
+    <!-- Header-->
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Maximum Service Capacity Analysis Per Host Instance</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li><a href="/">Dashboard</a></li>
+                        <li><a href="#">Analyzed Results</a></li>
+                        <li class="active">MSC Analysis Per Host Instance</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content mt-3">
+        <div class="animated fadeIn">
+            <div class="row mt-3">
+
+                <form  class="col-lg-12" name="limitsComparisonForm" action="#" >
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Service Name</strong>
+                            </div>
+                            <div class="card-body">
+
+                                <select name="serviceName" data-placeholder="Select the service" class="standardSelect" tabindex="5">
+                                    <option value=""></option>
+                                    <optgroup label="Compute">
+                                        <option value="compute/primeapp/primeapp">Prime Sum Calculation App</option>
+                                    </optgroup>
+                                    <optgroup label="DB Access">
+                                        <option value="dbaccess/movieapp/movieapp">Movies Access App</option>
+                                    </optgroup>
+                                    <optgroup label="Web">
+                                        <option value="web/webacapp/webacapp">Web Access App</option>
+                                    </optgroup>
+                                    <optgroup label="Sandbox">
+                                        <option value="sandbox/serveapp/serveapp">Sandboxed Server App</option>
+                                    </optgroup>
+                                    <optgroup label="Multiple">
+                                        <option value="mix/mixalapp/primeapp">Multi Services App - Prime</option>
+                                        <option value="mix/mixalapp/movieapp">Multi Services App - Movie</option>
+                                        <option value="mix/mixalapp/webacapp">Multi Services App - Web</option>
+                                        <option value="mix/mixalapp/serveapp">Multi Services App - Server</option>
+                                    </optgroup>
+
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Host Instance Type</strong>
+                            </div>
+                            <div class="card-body">
+
+                                <select name="hostInstance" data-placeholder="Select Host Instance..." class="standardSelect" tabindex="1">
+                                    <option value=""></option>
+                                    <option value="t2.nano">t2.nano</option>
+                                    <option value="t2.micro">t2.micro</option>
+                                    <option value="t2.small">t2.small</option>
+                                    <option value="t2.medium">t2.medium</option>
+                                    <option value="t2.large">t2.large</option>
+                                    <option value="t2.xlarge">t2.xlarge</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-lg-3"  >
+                        <button id="submit-button-compare" type="submit" class="btn btn-lg btn-info btn-block">
+                            <i class="fa fa-lock fa-lg"></i>&nbsp;
+                            <span id="payment-button-amount">Submit</span>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-12">
+                    <div class="card" style="text-align: center">
+                        <div class="card-header">
+                            <h4 class="mb-3">HostInstance Selected: <span id="instanceType" style="color: #0b7ec4"></span>  </h4>
+                            <h4 class="mb-3">RMS Error: <span id="rmsError" style="color: #0b7ec4"></span>  </h4>
+                        </div>
+                    </div>
+                </div><!-- /# column -->
+            </div>
+            <div class="">
+                <div class="">
+
+                    <table id="tableTests" class="stripe" style="width:100%">
+                        <thead>
+                        <tr>
+
+                            <th>Cores</th>
+                            <th>Memory</th>
+                            <th>AppName</th>
+                            <th>Replicas</th>
+                            <th>Predicted Replicas</th>
+                            <th>MSC Exp</th>
+                            <th>MSC Reg</th>
+                            <th>MSC Smart</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Cores</th>
+                            <th>Memory</th>
+                            <th>AppName</th>
+                            <th>Replicas</th>
+                            <th>Predicted Replicas</th>
+                            <th>MSC Exp</th>
+                            <th>MSC Reg</th>
+                            <th>MSC Smart</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="mb-3" style="text-align: center">Maximum Service Capacity Actual vs Whole Test Regression vs Smart Test Regression</h4>
+                            <div id="msc-compare"></div>
+                        </div>
+                    </div>
+                </div><!-- /# column -->
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="mb-3" style="text-align: center">Maximum Serive Capacity Actual vs Predicted <b>[CPU Util, Core Limit, Mem Limit, Request Duration(ms)]</b></h4>
+                            <div id="msc-cores"></div>
+                        </div>
+                    </div>
+                </div><!-- /# column -->
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="mb-3" style="text-align: center">Replicas Actual vs Predicted <b>[CPU Util, Core Limit, Mem Limit,Requests, Request Duration(ms)]</b></h4>
+                            <div id="replicas"></div>
+                        </div>
+                    </div>
+                </div><!-- /# column -->
+            </div>
+
+       </div><!-- .animated -->
+    </div><!-- .content -->
+
+
+</div><!-- /#right-panel -->
+
+<!-- Right Panel -->
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".standardSelect").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+            width: "100%"
+        });
+    });
+    $("#submit-button-compare").click(function() {
+        let serviceName = document.forms["limitsComparisonForm"]["serviceName"].value;
+        let hostInstance = document.forms["limitsComparisonForm"]["hostInstance"].value;
+        exxperimentalTRNURl = "/getExperimentalTRNsMongoDB/" + serviceName + '/' + hostInstance;
+        rmsErrorURL = "/getRMSErrorMongoDB/" + serviceName;
+        console.log(exxperimentalTRNURl);
+        UpdateTable(exxperimentalTRNURl,rmsErrorURL, "#tableTests");
+        document.getElementById("instanceType").innerHTML = hostInstance;
+        return false;
+    });
+
+    function UpdateTable(url, urlrmsError, tableId) {
+        fetch(urlrmsError)
+                .then(response => response.json())
+                .then(rmsErrorInfo => {
+                    console.log(rmsErrorInfo)
+                    document.getElementById("rmsError").innerHTML = parseFloat(rmsErrorInfo[0].RMSErrorPerMin / 60);
+                    expMscs = []
+                    expRegUp = []
+                    expRegLower = []
+                    record = []
+                    predictedReplicas = [];
+                    expRegBrute = [];
+                    expRegSmart = [];
+                    origReplicas = [];
+                    idx = 0;
+
+                    fetch(url)
+                            .then(response => response.json())
+                            .then(allTestsInfo => {
+                                console.log(allTestsInfo);
+                                let allData = [];
+                                //Once we fetch the list, we iterate over it
+                                allTestsInfo.Profiles.forEach(eachProfile => {
+
+                                    eachProfile.MSCs.forEach(eachMSC => {
+                                        var inst = [];
+                                        inst.push(eachProfile.Limits.Cpu_cores);
+                                        inst.push(eachProfile.Limits.Mem_gb);
+                                        inst.push(allTestsInfo.ServiceName);
+                                        inst.push(eachMSC.Replicas);
+                                        origReplicas.push(eachMSC.Replicas);
+                                        if(eachMSC.PredictedReplicas==0) {
+                                            predictedReplicas.push(1);
+                                            inst.push(1);
+                                        }
+                                        else {
+                                            predictedReplicas.push(eachMSC.PredictedReplicas);
+                                            inst.push(eachMSC.PredictedReplicas);
+                                        }
+                                        inst.push(eachMSC.Maximum_service_capacity_per_sec.Experimental);
+                                        inst.push(eachMSC.Maximum_service_capacity_per_sec.RegBruteForce);
+
+                                        expMscs.push(eachMSC.Maximum_service_capacity_per_sec.Experimental);
+                                        expRegBrute.push(eachMSC.Maximum_service_capacity_per_sec.RegBruteForce);
+                                        expRegSmart.push(eachMSC.Maximum_service_capacity_per_sec.RegSmart);
+                                        inst.push(eachMSC.Maximum_service_capacity_per_sec.RegSmart);
+                                        expRegUp.push(parseFloat(eachMSC.Maximum_service_capacity_per_sec.RegBruteForce) + parseFloat(rmsErrorInfo[0].RMSErrorPerMin/60) );
+                                        expRegLower.push(parseFloat(eachMSC.Maximum_service_capacity_per_sec.RegBruteForce) - parseFloat(rmsErrorInfo[0].RMSErrorPerMin/60) );
+                                        record.push(idx);
+                                        idx++;
+                                        allData.push(inst);
+                                    });
+                                });
+                                $(tableId).DataTable({
+                                    data: allData,
+                                    "bDestroy": true
+                                });
+                                var trace1 = {
+                                    x: record,
+                                    y: expMscs,
+                                    type: 'scatter',
+                                    name: "Actual Experimental MSC"
+                                };
+
+                                var trace2 = {
+                                    x: record,
+                                    y: expRegBrute,
+                                    type: 'scatter',
+                                    name: "Predicted MSC Whole Test Regression"
+                                };
+
+                                var trace3 = {
+                                    x: record,
+                                    y: expRegSmart,
+                                    type: 'scatter',
+                                    name: "Predicted MSC Smart Test Regression"
+                                };
+
+                                var data = [trace1,trace2,trace3];
+                                var layout = {
+                                    title: 'Maximum Service Capacity Actual vs Whole Test Regression vs Smart Test Regression '
+                                };
+                                Plotly.newPlot('msc-compare', data, layout);
+
+                                var trace1 = {
+                                    x: record,
+                                    y: expMscs,
+                                    fill: 'tonexty',
+                                    type: 'scatter',
+                                    name: "Actual Experimental MSC"
+                                };
+
+                                var trace2 = {
+                                    x: record,
+                                    y: expRegUp,
+                                    fill: 'tozeroy',
+                                    type: 'scatter',
+                                    name: "Predicted MSC Upper Limit"
+                                };
+
+                                var trace3 = {
+                                    x: record,
+                                    y: expRegLower,
+                                    fill: 'tozeroy',
+                                    type: 'scatter',
+                                    name: "Predicted MSC Lower Limit"
+                                };
+
+                                var data = [trace1,trace2,trace3];
+                                var layout = {
+                                    title: 'Maximum Service Capacity Predicted vs Actual '
+                                };
+                                Plotly.newPlot('msc-cores', data, layout);
+
+                                var trace1Replicas= {
+                                    x: record,
+                                    y: origReplicas,
+                                    fill: 'tonexty',
+                                    type: 'scatter',
+                                    name: "Actual Replicas "
+                                };
+
+                                var trace2Replicas = {
+                                    x: record,
+                                    y: predictedReplicas,
+                                    fill: 'tozeroy',
+                                    type: 'scatter',
+                                    name: "Predicted Replicas"
+                                };
+                                var dataReplicas = [trace1Replicas,trace2Replicas,];
+                                var layoutReplicas = {
+                                    title: 'Replicas Predicted vs Actual '
+                                };
+                                Plotly.newPlot('replicas', dataReplicas, layoutReplicas);
+                            });
+                });
+
+    }
+</script>
+{{end}}

@@ -1,0 +1,349 @@
+basePath: /
+definitions:
+  TERMINUS.Ec2Instances:
+    properties:
+      AvailabilityZone:
+        type: string
+      CoreCount:
+        type: integer
+      ImageId:
+        type: string
+      InstanceId:
+        type: string
+      InstanceState:
+        type: string
+      InstanceType:
+        type: string
+      LaunchTime:
+        type: string
+      PublicIpAddress:
+        type: string
+    type: object
+  TERMINUS.KopsConfig:
+    properties:
+      AwsAccessKeyId:
+        type: string
+      AwsSecretAccessKey:
+        type: string
+      ContainerName:
+        type: string
+      KubeClusterName:
+        type: string
+      Region:
+        type: string
+      S3BucketName:
+        type: string
+      Zone:
+        type: string
+    type: object
+host: localhost:8081
+info:
+  contact:
+    email: anshul.jindal@tum.de
+    name: Anshul Jindal
+  description: This is the api page for all APIs in TERMINUS
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  title: TERMINUS APIs
+  version: "1.0"
+paths:
+  /createDashboardKops:
+    get:
+      consumes:
+      - text/html
+      description: This api deploys the dashboard to kube cluster
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Status
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: This api deploys the dashboard to kube cluster
+      tags:
+      - internalUse
+  /deleteKubeCluster:
+    get:
+      consumes:
+      - text/html
+      description: This api deletes the Kube cluster and undeploys everything
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Status
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: This api deletes the Kube cluster and undeploys everything
+      tags:
+      - internalUse
+  /getClusterInfoKops:
+    get:
+      consumes:
+      - text/html
+      description: This api gets the cluster information
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Status
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: This api gets the cluster information
+      tags:
+      - internalUse
+  /getPasswordDashboard:
+    get:
+      consumes:
+      - text/html
+      description: This api gets the password to connection to Kube cluster with default
+        username as admin
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Password
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: This api gets the password to connection to Kube cluster with default
+        username as admin
+      tags:
+      - internalUse
+  /getTokenDashboard:
+    get:
+      consumes:
+      - text/html
+      description: This api gets the token to login into Kubedashboard
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Token
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: This api gets the token to login into Kubedashboard
+      tags:
+      - internalUse
+  /initKubeCluster:
+    get:
+      consumes:
+      - text/html
+      description: Start the Kube cluster
+      parameters:
+      - description: number of slaves
+        in: query
+        name: nodeCount
+        required: true
+        type: string
+      - description: type of Instance for slave nodes
+        in: query
+        name: nodeSize
+        required: true
+        type: string
+      - description: type of Instance for master node default is m3.large
+        in: query
+        name: masterSize
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: started
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Start the Kube cluster
+      tags:
+      - internalUse
+  /initUserConfig:
+    post:
+      consumes:
+      - application/json
+      description: Initialize User KOPS Configuration
+      parameters:
+      - description: '...'
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/TERMINUS.KopsConfig'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Initialize User KOPS Configuration
+      tags:
+      - internalUse
+  /listAllInstances:
+    get:
+      consumes:
+      - text/html
+      description: List all instances on AWS
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/TERMINUS.Ec2Instances'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: List all instances on AWS
+      tags:
+      - internalUse
+  /updateKubeCluster:
+    get:
+      consumes:
+      - text/html
+      description: This api confirms the cluster creation
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Status
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: This api confirms the cluster creation
+      tags:
+      - internalUse
+  /validateKubeCluster:
+    get:
+      consumes:
+      - text/html
+      description: This api validates the cluster and wait till its fully validated
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Status
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: This api validates the cluster and wait till its fully validated
+      tags:
+      - internalUse
+swagger: "2.0"

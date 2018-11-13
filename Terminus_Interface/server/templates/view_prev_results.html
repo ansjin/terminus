@@ -1,0 +1,540 @@
+{{define "content"}}
+
+<!-- Right Panel -->
+
+<div id="right-panel" class="right-panel">
+
+    <!-- Header-->
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>VM Booting Time </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li><a href="/">Dashboard</a></li>
+                        <li><a href="#">Analyzed Results</a></li>
+                        <li class="active">VM Booting Time</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div  style="margin-left: 20px; padding: 10px ">
+            <div  style="text-align: justify">
+              <section data-spotlight="fullscreen" >
+
+                <div class="spotlight-holder py-lg pt-lg-3">
+                  <div class="container">
+                    <div class="row-wrapper">
+                        Choose the Cloud Service Provider
+                      <div class="row cols-xs-space cols-sm-space cols-md-space" style="margin-top: 10px">
+                        <div class="container">
+                          <div class="card-group flex-column flex-md-row">
+                            <div class="col-lg-12">
+                              <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                  <a class="nav-link mb-sm-6 active"  id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" >AWS</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link mb-sm-6" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" >Google Compute Platform</a>
+                                </li>
+
+                              </ul>
+                              <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="card-group flex-column flex-md-row">
+                                        <div class="col-sm-6">
+                                            <div id="allExpsInstancesBoot"></div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div id="allExpsInstancesShut"></div>
+                                        </div>
+                                    </div>
+                                  Select the approach
+                                  <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="myTab1" role="tablist" style="margin-top: 10px">
+                                    <li class="nav-item">
+                                      <a class="nav-link mb-sm-4 active" id="approach1_aws" data-toggle="tab" href="#approach1_aws_tab" role="tab" aria-controls="home" aria-selected="true">Average of Random Multi-Interleaved</a>
+                                    </li>
+                                    <li class="nav-item">
+                                      <a class="nav-link mb-sm-4" id="approach2_aws" data-toggle="tab" href="#approach2_aws_tab" role="tab" aria-controls="profile" aria-selected="false">Regression</a>
+                                    </li>
+
+                                  </ul>
+                                  <div class="tab-content" id="myTab1Content">
+                                    <div class="tab-pane fade show active" id="approach1_aws_tab" role="tabpanel" aria-labelledby="approach1_aws">
+                                        <div class="card-group flex-column flex-md-row">
+                                            <div class="col-sm-6">
+                                                <div id="allInstancesBoot"></div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div id="allInstancesShut"></div>
+                                            </div>
+                                        </div>
+
+                                      <table id="bstime" class="stripe" style="width:100%">
+                                        <thead>
+                                        <tr>
+                                          <th>Type of Instance</th>
+                                          <th>Number of Instances</th>
+                                          <th>BootTime (sec)</th>
+                                          <th>ShutdownTime (sec)</th>
+                                          <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                          <th>Type of Instance</th>
+                                          <th>Number of Instances</th>
+                                          <th>BootTime (sec)</th>
+                                          <th>ShutdownTime (sec)</th>
+                                          <th></th>
+                                        </tr>
+                                        </tfoot>
+                                      </table>
+                                        <div id="myDiv"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="approach2_aws_tab" role="tabpanel" aria-labelledby="approach2_aws" style="display: block">
+                                        <div class="card-group flex-column flex-md-row" >
+                                            <div class="col-sm-6">
+                                                <div id="allInstancesBootPredicted"></div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div id="allInstancesShutPredicted"></div>
+                                            </div>
+                                        </div>
+                                        <table id="predictedbstime" class="stripe" style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Type of Instance</th>
+                                                <th>Number of Instances</th>
+                                                <th>BootTime (sec)</th>
+                                                <th>ShutdownTime (sec)</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <th>Type of Instance</th>
+                                                <th>Number of Instances</th>
+                                                <th>BootTime (sec)</th>
+                                                <th>ShutdownTime (sec)</th>
+                                                <th></th>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                        <div id="myDivPredicted"></div>
+                                    </div>
+
+                                  </div>
+                                </div>
+                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                  <p>Under COnstruction</p>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+        </div>
+</div>
+
+    <!-- Core -->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/popper/popper.min.js"></script>
+    <script src="assets/js/bootstrap/bootstrap.min.js"></script>
+    <!-- FontAwesome 5 -->
+    <script src="assets/vendor/fontawesome/js/fontawesome-all.min.js" defer></script>
+    <!-- Page plugins -->
+    <script src="assets/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+    <script src="assets/vendor/input-mask/input-mask.min.js"></script>
+    <script src="assets/vendor/nouislider/js/nouislider.min.js"></script>
+    <script src="assets/vendor/textarea-autosize/textarea-autosize.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Theme JS -->
+    <script src="jassets/s/theme.js"></script>
+  <script>
+      $(document).ready(function () {
+          makeGraphAllInstances();
+          var data = [];
+          var data2 = [];
+
+          var dataPredicted = [];
+          var data2Predicted = [];
+
+          fetch("/getAllVMTypesBootShutDownDataAvg")
+                  .then(response => response.json())
+      .then(instancesList => {
+              var allData = [];
+          //Once we fetch the list, we iterate over it
+          instancesList.forEach(instance => {
+              // Create the table row
+              var x = [];
+          var y = [];
+          var y2 = [];
+          instance.BootShutdownRate.forEach(rate => {
+              var inst = [];
+          inst.push(instance.InstanceType);
+          inst.push(rate.NumInstances);
+          inst.push(rate.BootTime.Avg);
+          inst.push(rate.ShutdownTime.Avg);
+          inst.push(" <button type=\"button\" class=\"btn btn-block btn-outline-primary\" onclick='makeGraph(\"" + instance.InstanceType + "\", \"myDiv\")'>Graph</button>");
+          allData.push(inst);
+          x.push(rate.NumInstances);
+          y.push(rate.BootTime.Avg);
+          y2.push(rate.ShutdownTime.Avg);
+
+      });
+          var trace1 = {
+              type: "scatter",
+              mode: "lines",
+              name: instance.InstanceType,
+              x: x,
+              y: y,
+              line: {color: '#17BxCF'},
+
+          };
+          var trace2 = {
+              type: "scatter",
+              mode: "lines",
+              name: instance.InstanceType,
+              x: x,
+              y: y2,
+              line: {color: '#17BxCF'},
+
+          };
+
+          data.push(trace1);
+          data2.push(trace2);
+      });
+          $('#bstime').DataTable({
+              data: allData
+          });
+          var layout = {
+              title: "Booting Time Graph for all instance types ",
+              xaxis: {
+                  title: 'Instances Number',
+                  titlefont: {
+                      family: 'Courier New, monospace',
+                      size: 14,
+                      color: '#7f7f7f'
+                  }
+              },
+              yaxis: {
+                  title: 'Time(in secs)',
+                  titlefont: {
+                      family: 'Courier New, monospace',
+                      size: 14,
+                      color: '#7f7f7f'
+                  }
+              }
+
+          };
+          var layout2 = {
+              title: "Shutting-Down Time Graph for all instance types ",
+              xaxis: {
+                  title: 'Instances Number',
+                  titlefont: {
+                      family: 'Courier New, monospace',
+                      size: 14,
+                      color: '#7f7f7f'
+                  }
+              },
+              yaxis: {
+                  title: 'Time(in secs)',
+                  titlefont: {
+                      family: 'Courier New, monospace',
+                      size: 14,
+                      color: '#7f7f7f'
+                  }
+              },
+
+          };
+          Plotly.newPlot('allInstancesBoot', data, layout);
+          Plotly.newPlot('allInstancesShut', data2, layout2);
+      });
+          makeGraph("t2.nano", "myDiv");
+
+
+          fetch("/getAllVMTypesBootShutDownDataRegression")
+                  .then(response => response.json())
+      .then(instancesList => {
+              var allData = [];
+          //Once we fetch the list, we iterate over it
+          instancesList.forEach(instance => {
+              // Create the table row
+              var x = [];
+          var y = [];
+          var y2 = [];
+          instance.InstanceValues.forEach(rate => {
+              var inst = [];
+          inst.push(instance.InstanceType);
+          inst.push(rate.NumInstances);
+          inst.push(rate.BootTime);
+          inst.push(rate.ShutDownTime);
+          inst.push(" <button type=\"button\" class=\"btn btn-block btn-outline-primary\" onclick='makeGraph(\"" + instance.InstanceType + "\", \"myDivPredicted\")'>Graph</button>");
+          allData.push(inst);
+          x.push(rate.NumInstances);
+          y.push(rate.BootTime);
+          y2.push(rate.ShutDownTime);
+
+      });
+          var trace1 = {
+              type: "scatter",
+              mode: "lines",
+              name: instance.InstanceType,
+              x: x,
+              y: y,
+              line: {color: '#17BxCF'},
+
+          };
+          var trace2 = {
+              type: "scatter",
+              mode: "lines",
+              name: instance.InstanceType,
+              x: x,
+              y: y2,
+              line: {color: '#17BxCF'},
+
+          };
+
+          dataPredicted.push(trace1);
+          data2Predicted.push(trace2);
+      });
+          $('#predictedbstime').DataTable({
+              data: allData
+          });
+          var layout = {
+              title: "Booting Time Graph for all instance types ",
+              xaxis: {
+                  title: 'Instances Number',
+                  titlefont: {
+                      family: 'Courier New, monospace',
+                      size: 14,
+                      color: '#7f7f7f'
+                  }
+              },
+              yaxis: {
+                  title: 'Time(in secs)',
+                  titlefont: {
+                      family: 'Courier New, monospace',
+                      size: 14,
+                      color: '#7f7f7f'
+                  }
+              }
+
+          };
+          var layout2 = {
+              title: "Shutting-Down Time Graph for all instance types ",
+              xaxis: {
+                  title: 'Instances Number',
+                  titlefont: {
+                      family: 'Courier New, monospace',
+                      size: 14,
+                      color: '#7f7f7f'
+                  }
+              },
+              yaxis: {
+                  title: 'Time(in secs)',
+                  titlefont: {
+                      family: 'Courier New, monospace',
+                      size: 14,
+                      color: '#7f7f7f'
+                  }
+              },
+
+          };
+          Plotly.newPlot('allInstancesBootPredicted', dataPredicted, layout);
+          Plotly.newPlot('allInstancesShutPredicted', data2Predicted, layout2);
+      });
+          makeGraph("t2.nano", "myDivPredicted");
+      });
+
+      function makeGraph(instanceType, divId) {
+
+          var data = [];   var x = [];
+          var y = [];
+          var y2 = []; var i=0;
+          fetch("/getAllVMTypesBootShutDownDataAvg")
+                  .then(response => response.json())
+      .then(instancesList => {
+              var allData = [];
+          //Once we fetch the list, we iterate over it
+          instancesList.forEach(instance => {
+              // Create the table row
+              if (instanceType == instance.InstanceType) {
+              instance.ExperimentLoop.forEach(Exploop => {
+                  Exploop.Experiments.forEach(experiment => {
+                  experiment.Instances.forEach(vm => {
+                  x.push(i);
+              y.push(vm.Running - vm.Pending);
+              y2.push(vm.Terminated - vm.ShuttingDown);
+              i++;
+          });
+          });
+          });
+
+              var trace1 = {
+                  type: "scatter",
+                  mode: "lines",
+                  name: "Boot Time",
+                  x: x,
+                  y: y,
+                  line: {color: '#17BxCF'},
+
+              };
+              var trace2 = {
+                  type: "scatter",
+                  mode: "lines",
+                  name: "Shutdown Time",
+                  x: x,
+                  y: y2,
+                  line: {color: '#17BECF'},
+
+              };
+              data.push(trace1);
+              data.push(trace2);
+              var layout = {
+                  title: "Graph for " + instanceType,
+                  xaxis: {
+                      title: 'nth Instance',
+                      titlefont: {
+                          family: 'Courier New, monospace',
+                          size: 14,
+                          color: '#7f7f7f'
+                      }
+                  },
+                  yaxis: {
+                      title: 'Time(in secs)',
+                      titlefont: {
+                          family: 'Courier New, monospace',
+                          size: 14,
+                          color: '#7f7f7f'
+                      }
+                  }
+
+              };
+
+              Plotly.newPlot(divId, data, layout);
+              return;
+          }
+
+      });
+
+      });
+      }
+
+      function makeGraphAllInstances() {
+          var data = [];
+          var data2 = [];
+
+          fetch("/getAllVMTypesBootShutDownDataAvg")
+                  .then(response => response.json())
+      .then(instancesList => {
+              instancesList.forEach(instance => {
+              var i=1; var x = [];
+          var y = [];
+          var y2 = [];
+              instance.ExperimentLoop.forEach(Exploop => {
+              Exploop.Experiments.forEach(experiment => {
+              experiment.Instances.forEach(vm => {
+              x.push(i);
+          y.push(vm.Running - vm.Pending);
+          y2.push(vm.Terminated - vm.ShuttingDown);
+          i++;
+      });
+      });
+      });
+          var trace1 = {
+              type: "scatter",
+              mode: "lines",
+              name: instance.InstanceType,
+              x: x,
+              y: y,
+              line: {color: '#17BxCF'},
+
+          };
+          data.push(trace1);
+          var trace2 = {
+              type: "scatter",
+              mode: "lines",
+              name: instance.InstanceType,
+              x: x,
+              y: y2,
+              line: {color: '#17BxCF'},
+
+          };
+          data2.push(trace2);
+      });
+
+          var layout = {
+              title: "Booting Time Graph for all instance types ",
+              xaxis: {
+                  title: 'nth Instance',
+                  titlefont: {
+                      family: 'Courier New, monospace',
+                      size: 14,
+                      color: '#7f7f7f'
+                  }
+              },
+              yaxis: {
+                  title: 'Time(in secs)',
+                  titlefont: {
+                      family: 'Courier New, monospace',
+                      size: 14,
+                      color: '#7f7f7f'
+                  }
+              }
+
+          };
+          var layout2 = {
+              title: "Shutting-Down Time Graph for all instance types ",
+              xaxis: {
+                  title: 'nth Instance',
+                  titlefont: {
+                      family: 'Courier New, monospace',
+                      size: 14,
+                      color: '#7f7f7f'
+                  }
+              },
+              yaxis: {
+                  title: 'Time(in secs)',
+                  titlefont: {
+                      family: 'Courier New, monospace',
+                      size: 14,
+                      color: '#7f7f7f'
+                  }
+              },
+
+          };
+          Plotly.newPlot('allExpsInstancesBoot', data, layout);
+          Plotly.newPlot('allExpsInstancesShut', data2, layout2);
+          return;
+
+
+      });
+      }
+
+  </script>
+{{end}}

@@ -1,0 +1,525 @@
+time="2018-09-13T15:17:07+02:00" level=info msg="filename=test"
+time="2018-09-13T15:17:07+02:00" level=info msg="version: '2'\r\nservices:\r\n  server:\r\n    build: ./server\r\n    image: ansjin/three_microservice:server\r\n    ports:\r\n      - \"8080:8080\"\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n    depends_on:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n    links:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n  hello-world-service:\r\n    build: ./hello-world-service\r\n    image: ansjin/three_microservice:hello\r\n    ports:\r\n      - \"9001:9001\"\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n  product-descp-service:\r\n    build: ./product-descp-service\r\n    image: ansjin/three_microservice:productdescp\r\n    ports:\r\n      - \"9002:9002\"\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n  dummy:\r\n    build: ./dummy\r\n    image: ansjin/three_microservice:dummy\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n    ports:\r\n      - \"9005:9005\"\r\n    depends_on:\r\n      - 'server'\r\n    links:\r\n      - 'server'\r\n\r\n"
+time="2018-09-13T15:17:07+02:00" level=info msg=Build
+time="2018-09-13T15:17:07+02:00" level=info
+time="2018-09-13T15:17:07+02:00" level=info msg=./server
+time="2018-09-13T15:17:07+02:00" level=info msg=Depends_on
+time="2018-09-13T15:17:07+02:00" level=info msg="[]"
+time="2018-09-13T15:17:07+02:00" level=info msg="[]string"
+time="2018-09-13T15:17:07+02:00" level=info msg=Environment
+time="2018-09-13T15:17:07+02:00" level=info msg="[]"
+time="2018-09-13T15:17:07+02:00" level=info msg="[]string"
+time="2018-09-13T15:17:07+02:00" level=info msg=Image
+time="2018-09-13T15:17:07+02:00" level=info
+time="2018-09-13T15:17:07+02:00" level=info msg="ansjin/three_microservice:server"
+time="2018-09-13T15:17:07+02:00" level=info msg=Links
+time="2018-09-13T15:17:07+02:00" level=info msg="[]"
+time="2018-09-13T15:17:07+02:00" level=info msg="[]string"
+time="2018-09-13T15:17:07+02:00" level=info msg=Ports
+time="2018-09-13T15:17:07+02:00" level=info msg="[]"
+time="2018-09-13T15:17:07+02:00" level=info msg="[]string"
+time="2018-09-13T15:17:07+02:00" level=info msg=server
+time="2018-09-13T15:17:07+02:00" level=info msg=Image
+time="2018-09-13T15:17:07+02:00" level=info
+time="2018-09-13T15:17:07+02:00" level=info msg="ansjin/three_microservice:dummy"
+time="2018-09-13T15:17:07+02:00" level=info msg=Links
+time="2018-09-13T15:17:07+02:00" level=info msg="[]"
+time="2018-09-13T15:17:07+02:00" level=info msg="[]string"
+time="2018-09-13T15:17:07+02:00" level=info msg=Ports
+time="2018-09-13T15:17:07+02:00" level=info msg="[]"
+time="2018-09-13T15:17:07+02:00" level=info msg="[]string"
+time="2018-09-13T15:17:07+02:00" level=info msg=Build
+time="2018-09-13T15:17:07+02:00" level=info
+time="2018-09-13T15:17:07+02:00" level=info msg=./dummy
+time="2018-09-13T15:17:07+02:00" level=info msg=Depends_on
+time="2018-09-13T15:17:07+02:00" level=info msg="[]"
+time="2018-09-13T15:17:07+02:00" level=info msg="[]string"
+time="2018-09-13T15:17:07+02:00" level=info msg=Environment
+time="2018-09-13T15:17:07+02:00" level=info msg="[]"
+time="2018-09-13T15:17:07+02:00" level=info msg="[]string"
+time="2018-09-13T15:17:07+02:00" level=info msg=dummy
+time="2018-09-13T15:17:07+02:00" level=info msg=Environment
+time="2018-09-13T15:17:07+02:00" level=info msg="[]"
+time="2018-09-13T15:17:07+02:00" level=info msg="[]string"
+time="2018-09-13T15:17:07+02:00" level=info msg=Image
+time="2018-09-13T15:17:07+02:00" level=info
+time="2018-09-13T15:17:07+02:00" level=info msg="ansjin/three_microservice:hello"
+time="2018-09-13T15:17:07+02:00" level=info msg=Ports
+time="2018-09-13T15:17:07+02:00" level=info msg="[]"
+time="2018-09-13T15:17:07+02:00" level=info msg="[]string"
+time="2018-09-13T15:17:07+02:00" level=info msg=Build
+time="2018-09-13T15:17:07+02:00" level=info
+time="2018-09-13T15:17:07+02:00" level=info msg=./hello-world-service
+time="2018-09-13T15:17:07+02:00" level=info msg=hello-world-service
+time="2018-09-13T15:17:07+02:00" level=info msg=Image
+time="2018-09-13T15:17:07+02:00" level=info
+time="2018-09-13T15:17:07+02:00" level=info msg="ansjin/three_microservice:productdescp"
+time="2018-09-13T15:17:07+02:00" level=info msg=Ports
+time="2018-09-13T15:17:07+02:00" level=info msg="[]"
+time="2018-09-13T15:17:07+02:00" level=info msg="[]string"
+time="2018-09-13T15:17:07+02:00" level=info msg=Build
+time="2018-09-13T15:17:07+02:00" level=info
+time="2018-09-13T15:17:07+02:00" level=info msg=./product-descp-service
+time="2018-09-13T15:17:07+02:00" level=info msg=Environment
+time="2018-09-13T15:17:07+02:00" level=info msg="[]"
+time="2018-09-13T15:17:07+02:00" level=info msg="[]string"
+time="2018-09-13T15:17:07+02:00" level=info msg=product-descp-service
+time="2018-09-13T15:17:07+02:00" level=info msg="net.Dial: <nil>"
+time="2018-09-13T15:17:07+02:00" level=info msg=131.159.219.44
+time="2018-09-13T15:18:42+02:00" level=info msg="filename=test"
+time="2018-09-13T15:18:42+02:00" level=info msg="version: '2'\r\nservices:\r\n  server:\r\n    build: ./server\r\n    image: ansjin/three_microservice:server\r\n    ports:\r\n      - \"8080:8080\"\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n    depends_on:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n    links:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n  hello-world-service:\r\n    build: ./hello-world-service\r\n    image: ansjin/three_microservice:hello\r\n    ports:\r\n      - \"9001:9001\"\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n  product-descp-service:\r\n    build: ./product-descp-service\r\n    image: ansjin/three_microservice:productdescp\r\n    ports:\r\n      - \"9002:9002\"\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n  dummy:\r\n    build: ./dummy\r\n    image: ansjin/three_microservice:dummy\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n    ports:\r\n      - \"9005:9005\"\r\n    depends_on:\r\n      - 'server'\r\n    links:\r\n      - 'server'\r\n\r\n"
+time="2018-09-13T15:18:42+02:00" level=info msg=Environment
+time="2018-09-13T15:18:42+02:00" level=info msg="[]"
+time="2018-09-13T15:18:42+02:00" level=info msg="[]string"
+time="2018-09-13T15:18:42+02:00" level=info msg=Image
+time="2018-09-13T15:18:42+02:00" level=info
+time="2018-09-13T15:18:42+02:00" level=info msg="ansjin/three_microservice:dummy"
+time="2018-09-13T15:18:42+02:00" level=info msg=Links
+time="2018-09-13T15:18:42+02:00" level=info msg="[]"
+time="2018-09-13T15:18:42+02:00" level=info msg="[]string"
+time="2018-09-13T15:18:42+02:00" level=info msg=Ports
+time="2018-09-13T15:18:42+02:00" level=info msg="[]"
+time="2018-09-13T15:18:42+02:00" level=info msg="[]string"
+time="2018-09-13T15:18:42+02:00" level=info msg=Build
+time="2018-09-13T15:18:42+02:00" level=info
+time="2018-09-13T15:18:42+02:00" level=info msg=./dummy
+time="2018-09-13T15:18:42+02:00" level=info msg=Depends_on
+time="2018-09-13T15:18:42+02:00" level=info msg="[]"
+time="2018-09-13T15:18:42+02:00" level=info msg="[]string"
+time="2018-09-13T15:18:42+02:00" level=info msg=dummy
+time="2018-09-13T15:18:42+02:00" level=info msg=Build
+time="2018-09-13T15:18:42+02:00" level=info
+time="2018-09-13T15:18:42+02:00" level=info msg=./hello-world-service
+time="2018-09-13T15:18:42+02:00" level=info msg=Environment
+time="2018-09-13T15:18:42+02:00" level=info msg="[]"
+time="2018-09-13T15:18:42+02:00" level=info msg="[]string"
+time="2018-09-13T15:18:42+02:00" level=info msg=Image
+time="2018-09-13T15:18:42+02:00" level=info
+time="2018-09-13T15:18:42+02:00" level=info msg="ansjin/three_microservice:hello"
+time="2018-09-13T15:18:42+02:00" level=info msg=Ports
+time="2018-09-13T15:18:42+02:00" level=info msg="[]"
+time="2018-09-13T15:18:42+02:00" level=info msg="[]string"
+time="2018-09-13T15:18:42+02:00" level=info msg=hello-world-service
+time="2018-09-13T15:18:42+02:00" level=info msg=Build
+time="2018-09-13T15:18:42+02:00" level=info
+time="2018-09-13T15:18:42+02:00" level=info msg=./product-descp-service
+time="2018-09-13T15:18:42+02:00" level=info msg=Environment
+time="2018-09-13T15:18:42+02:00" level=info msg="[]"
+time="2018-09-13T15:18:42+02:00" level=info msg="[]string"
+time="2018-09-13T15:18:42+02:00" level=info msg=Image
+time="2018-09-13T15:18:42+02:00" level=info
+time="2018-09-13T15:18:42+02:00" level=info msg="ansjin/three_microservice:productdescp"
+time="2018-09-13T15:18:42+02:00" level=info msg=Ports
+time="2018-09-13T15:18:42+02:00" level=info msg="[]"
+time="2018-09-13T15:18:42+02:00" level=info msg="[]string"
+time="2018-09-13T15:18:42+02:00" level=info msg=product-descp-service
+time="2018-09-13T15:18:42+02:00" level=info msg=Depends_on
+time="2018-09-13T15:18:42+02:00" level=info msg="[]"
+time="2018-09-13T15:18:42+02:00" level=info msg="[]string"
+time="2018-09-13T15:18:42+02:00" level=info msg=Environment
+time="2018-09-13T15:18:42+02:00" level=info msg="[]"
+time="2018-09-13T15:18:42+02:00" level=info msg="[]string"
+time="2018-09-13T15:18:42+02:00" level=info msg=Image
+time="2018-09-13T15:18:42+02:00" level=info
+time="2018-09-13T15:18:42+02:00" level=info msg="ansjin/three_microservice:server"
+time="2018-09-13T15:18:42+02:00" level=info msg=Links
+time="2018-09-13T15:18:42+02:00" level=info msg="[]"
+time="2018-09-13T15:18:42+02:00" level=info msg="[]string"
+time="2018-09-13T15:18:42+02:00" level=info msg=Ports
+time="2018-09-13T15:18:42+02:00" level=info msg="[]"
+time="2018-09-13T15:18:42+02:00" level=info msg="[]string"
+time="2018-09-13T15:18:42+02:00" level=info msg=Build
+time="2018-09-13T15:18:42+02:00" level=info
+time="2018-09-13T15:18:42+02:00" level=info msg=./server
+time="2018-09-13T15:18:42+02:00" level=info msg=server
+time="2018-09-13T15:18:42+02:00" level=info msg="net.Dial: <nil>"
+time="2018-09-13T15:18:42+02:00" level=info msg=131.159.219.44
+time="2018-09-13T15:20:11+02:00" level=info msg="filename=test"
+time="2018-09-13T15:20:11+02:00" level=info msg="version: '2'\r\nservices:\r\n  server:\r\n    build: ./server\r\n    image: ansjin/three_microservice:server\r\n    ports:\r\n      - \"8080:8080\"\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n    depends_on:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n    links:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n  hello-world-service:\r\n    build: ./hello-world-service\r\n    image: ansjin/three_microservice:hello\r\n    ports:\r\n      - \"9001:9001\"\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n  product-descp-service:\r\n    build: ./product-descp-service\r\n    image: ansjin/three_microservice:productdescp\r\n    ports:\r\n      - \"9002:9002\"\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n  dummy:\r\n    build: ./dummy\r\n    image: ansjin/three_microservice:dummy\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n    ports:\r\n      - \"9005:9005\"\r\n    depends_on:\r\n      - 'server'\r\n    links:\r\n      - 'server'\r\n\r\n"
+time="2018-09-13T15:20:11+02:00" level=info msg=Image
+time="2018-09-13T15:20:11+02:00" level=info
+time="2018-09-13T15:20:11+02:00" level=info msg="ansjin/three_microservice:hello"
+time="2018-09-13T15:20:11+02:00" level=info msg=Ports
+time="2018-09-13T15:20:11+02:00" level=info msg="[]"
+time="2018-09-13T15:20:11+02:00" level=info msg="[]string"
+time="2018-09-13T15:20:11+02:00" level=info msg=Build
+time="2018-09-13T15:20:11+02:00" level=info
+time="2018-09-13T15:20:11+02:00" level=info msg=./hello-world-service
+time="2018-09-13T15:20:11+02:00" level=info msg=Environment
+time="2018-09-13T15:20:11+02:00" level=info msg="[]"
+time="2018-09-13T15:20:11+02:00" level=info msg="[]string"
+time="2018-09-13T15:20:11+02:00" level=info msg=hello-world-service
+time="2018-09-13T15:20:11+02:00" level=info msg=Build
+time="2018-09-13T15:20:11+02:00" level=info
+time="2018-09-13T15:20:11+02:00" level=info msg=./product-descp-service
+time="2018-09-13T15:20:11+02:00" level=info msg=Environment
+time="2018-09-13T15:20:11+02:00" level=info msg="[]"
+time="2018-09-13T15:20:11+02:00" level=info msg="[]string"
+time="2018-09-13T15:20:11+02:00" level=info msg=Image
+time="2018-09-13T15:20:11+02:00" level=info
+time="2018-09-13T15:20:11+02:00" level=info msg="ansjin/three_microservice:productdescp"
+time="2018-09-13T15:20:11+02:00" level=info msg=Ports
+time="2018-09-13T15:20:11+02:00" level=info msg="[]"
+time="2018-09-13T15:20:11+02:00" level=info msg="[]string"
+time="2018-09-13T15:20:11+02:00" level=info msg=product-descp-service
+time="2018-09-13T15:20:11+02:00" level=info msg=Build
+time="2018-09-13T15:20:11+02:00" level=info
+time="2018-09-13T15:20:11+02:00" level=info msg=./server
+time="2018-09-13T15:20:11+02:00" level=info msg=Depends_on
+time="2018-09-13T15:20:11+02:00" level=info msg="[]"
+time="2018-09-13T15:20:11+02:00" level=info msg="[]string"
+time="2018-09-13T15:20:11+02:00" level=info msg=Environment
+time="2018-09-13T15:20:11+02:00" level=info msg="[]"
+time="2018-09-13T15:20:11+02:00" level=info msg="[]string"
+time="2018-09-13T15:20:11+02:00" level=info msg=Image
+time="2018-09-13T15:20:11+02:00" level=info
+time="2018-09-13T15:20:11+02:00" level=info msg="ansjin/three_microservice:server"
+time="2018-09-13T15:20:11+02:00" level=info msg=Links
+time="2018-09-13T15:20:11+02:00" level=info msg="[]"
+time="2018-09-13T15:20:11+02:00" level=info msg="[]string"
+time="2018-09-13T15:20:11+02:00" level=info msg=Ports
+time="2018-09-13T15:20:11+02:00" level=info msg="[]"
+time="2018-09-13T15:20:11+02:00" level=info msg="[]string"
+time="2018-09-13T15:20:11+02:00" level=info msg=server
+time="2018-09-13T15:20:11+02:00" level=info msg=Build
+time="2018-09-13T15:20:11+02:00" level=info
+time="2018-09-13T15:20:11+02:00" level=info msg=./dummy
+time="2018-09-13T15:20:11+02:00" level=info msg=Depends_on
+time="2018-09-13T15:20:11+02:00" level=info msg="[]"
+time="2018-09-13T15:20:11+02:00" level=info msg="[]string"
+time="2018-09-13T15:20:11+02:00" level=info msg=Environment
+time="2018-09-13T15:20:11+02:00" level=info msg="[]"
+time="2018-09-13T15:20:11+02:00" level=info msg="[]string"
+time="2018-09-13T15:20:11+02:00" level=info msg=Image
+time="2018-09-13T15:20:11+02:00" level=info
+time="2018-09-13T15:20:11+02:00" level=info msg="ansjin/three_microservice:dummy"
+time="2018-09-13T15:20:11+02:00" level=info msg=Links
+time="2018-09-13T15:20:11+02:00" level=info msg="[]"
+time="2018-09-13T15:20:11+02:00" level=info msg="[]string"
+time="2018-09-13T15:20:11+02:00" level=info msg=Ports
+time="2018-09-13T15:20:11+02:00" level=info msg="[]"
+time="2018-09-13T15:20:11+02:00" level=info msg="[]string"
+time="2018-09-13T15:20:11+02:00" level=info msg=dummy
+time="2018-09-13T15:20:11+02:00" level=info msg="net.Dial: <nil>"
+time="2018-09-13T15:20:11+02:00" level=info msg=131.159.219.44
+time="2018-09-13T15:21:28+02:00" level=info msg="filename=test"
+time="2018-09-13T15:21:28+02:00" level=info msg="version: '2'\r\nservices:\r\n  server:\r\n    build: ./server\r\n    image: ansjin/three_microservice:server\r\n    ports:\r\n      - \"8080:8080\"\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n    depends_on:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n    links:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n  hello-world-service:\r\n    build: ./hello-world-service\r\n    image: ansjin/three_microservice:hello\r\n    ports:\r\n      - \"9001:9001\"\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n  product-descp-service:\r\n    build: ./product-descp-service\r\n    image: ansjin/three_microservice:productdescp\r\n    ports:\r\n      - \"9002:9002\"\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n  dummy:\r\n    build: ./dummy\r\n    image: ansjin/three_microservice:dummy\r\n    environment:\r\n      - HTTP_PROXY=http://hoxy_app:8085\r\n    ports:\r\n      - \"9005:9005\"\r\n    depends_on:\r\n      - 'server'\r\n    links:\r\n      - 'server'\r\n\r\n"
+time="2018-09-13T15:21:28+02:00" level=info msg=Build
+time="2018-09-13T15:21:28+02:00" level=info
+time="2018-09-13T15:21:28+02:00" level=info msg=./dummy
+time="2018-09-13T15:21:28+02:00" level=info msg=Depends_on
+time="2018-09-13T15:21:28+02:00" level=info msg="[]"
+time="2018-09-13T15:21:28+02:00" level=info msg="[]string"
+time="2018-09-13T15:21:28+02:00" level=info msg=Environment
+time="2018-09-13T15:21:28+02:00" level=info msg="[]"
+time="2018-09-13T15:21:28+02:00" level=info msg="[]string"
+time="2018-09-13T15:21:28+02:00" level=info msg=Image
+time="2018-09-13T15:21:28+02:00" level=info
+time="2018-09-13T15:21:28+02:00" level=info msg="ansjin/three_microservice:dummy"
+time="2018-09-13T15:21:28+02:00" level=info msg=Links
+time="2018-09-13T15:21:28+02:00" level=info msg="[]"
+time="2018-09-13T15:21:28+02:00" level=info msg="[]string"
+time="2018-09-13T15:21:28+02:00" level=info msg=Ports
+time="2018-09-13T15:21:28+02:00" level=info msg="[]"
+time="2018-09-13T15:21:28+02:00" level=info msg="[]string"
+time="2018-09-13T15:21:28+02:00" level=info msg=dummy
+time="2018-09-13T15:21:28+02:00" level=info msg=Build
+time="2018-09-13T15:21:28+02:00" level=info
+time="2018-09-13T15:21:28+02:00" level=info msg=./hello-world-service
+time="2018-09-13T15:21:28+02:00" level=info msg=Environment
+time="2018-09-13T15:21:28+02:00" level=info msg="[]"
+time="2018-09-13T15:21:28+02:00" level=info msg="[]string"
+time="2018-09-13T15:21:28+02:00" level=info msg=Image
+time="2018-09-13T15:21:28+02:00" level=info
+time="2018-09-13T15:21:28+02:00" level=info msg="ansjin/three_microservice:hello"
+time="2018-09-13T15:21:28+02:00" level=info msg=Ports
+time="2018-09-13T15:21:28+02:00" level=info msg="[]"
+time="2018-09-13T15:21:28+02:00" level=info msg="[]string"
+time="2018-09-13T15:21:28+02:00" level=info msg=hello-world-service
+time="2018-09-13T15:21:28+02:00" level=info msg=Build
+time="2018-09-13T15:21:28+02:00" level=info
+time="2018-09-13T15:21:28+02:00" level=info msg=./product-descp-service
+time="2018-09-13T15:21:28+02:00" level=info msg=Environment
+time="2018-09-13T15:21:28+02:00" level=info msg="[]"
+time="2018-09-13T15:21:28+02:00" level=info msg="[]string"
+time="2018-09-13T15:21:28+02:00" level=info msg=Image
+time="2018-09-13T15:21:28+02:00" level=info
+time="2018-09-13T15:21:28+02:00" level=info msg="ansjin/three_microservice:productdescp"
+time="2018-09-13T15:21:28+02:00" level=info msg=Ports
+time="2018-09-13T15:21:28+02:00" level=info msg="[]"
+time="2018-09-13T15:21:28+02:00" level=info msg="[]string"
+time="2018-09-13T15:21:28+02:00" level=info msg=product-descp-service
+time="2018-09-13T15:21:28+02:00" level=info msg=Depends_on
+time="2018-09-13T15:21:28+02:00" level=info msg="[]"
+time="2018-09-13T15:21:28+02:00" level=info msg="[]string"
+time="2018-09-13T15:21:28+02:00" level=info msg=Environment
+time="2018-09-13T15:21:28+02:00" level=info msg="[]"
+time="2018-09-13T15:21:28+02:00" level=info msg="[]string"
+time="2018-09-13T15:21:28+02:00" level=info msg=Image
+time="2018-09-13T15:21:28+02:00" level=info
+time="2018-09-13T15:21:28+02:00" level=info msg="ansjin/three_microservice:server"
+time="2018-09-13T15:21:28+02:00" level=info msg=Links
+time="2018-09-13T15:21:28+02:00" level=info msg="[]"
+time="2018-09-13T15:21:28+02:00" level=info msg="[]string"
+time="2018-09-13T15:21:28+02:00" level=info msg=Ports
+time="2018-09-13T15:21:28+02:00" level=info msg="[]"
+time="2018-09-13T15:21:28+02:00" level=info msg="[]string"
+time="2018-09-13T15:21:28+02:00" level=info msg=Build
+time="2018-09-13T15:21:28+02:00" level=info
+time="2018-09-13T15:21:28+02:00" level=info msg=./server
+time="2018-09-13T15:21:28+02:00" level=info msg=server
+time="2018-09-13T15:21:28+02:00" level=info msg="net.Dial: <nil>"
+time="2018-09-13T15:21:28+02:00" level=info msg=131.159.219.44
+time="2018-09-13T15:21:28+02:00" level=info msg="net.Dial: <nil>"
+time="2018-09-14T02:29:24+02:00" level=info msg="filename=test"
+time="2018-09-14T02:29:24+02:00" level=info msg="version: '2'\r\nservices:\r\n  server:\r\n    build: ./server\r\n    image: ansjin/three_microservice:server\r\n    ports:\r\n      - \"8080:8080\"\r\n    depends_on:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n    links:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n  hello-world-service:\r\n    build: ./hello-world-service\r\n    image: ansjin/three_microservice:hello\r\n    ports:\r\n      - \"9001:9001\"\r\n  product-descp-service:\r\n    build: ./product-descp-service\r\n    image: ansjin/three_microservice:productdescp\r\n    ports:\r\n      - \"9002:9002\"\r\n  dummy:\r\n    build: ./dummy\r\n    image: ansjin/three_microservice:dummy\r\n    ports:\r\n      - \"9005:9005\"\r\n    depends_on:\r\n      - 'server'\r\n    links:\r\n      - 'server'\r\n\r\n"
+time="2018-09-14T02:29:24+02:00" level=info msg=Build
+time="2018-09-14T02:29:24+02:00" level=info
+time="2018-09-14T02:29:24+02:00" level=info msg=./dummy
+time="2018-09-14T02:29:24+02:00" level=info msg=Depends_on
+time="2018-09-14T02:29:24+02:00" level=info msg="[]"
+time="2018-09-14T02:29:24+02:00" level=info msg="[]string"
+time="2018-09-14T02:29:24+02:00" level=info msg=Image
+time="2018-09-14T02:29:24+02:00" level=info
+time="2018-09-14T02:29:24+02:00" level=info msg="ansjin/three_microservice:dummy"
+time="2018-09-14T02:29:24+02:00" level=info msg=Links
+time="2018-09-14T02:29:24+02:00" level=info msg="[]"
+time="2018-09-14T02:29:24+02:00" level=info msg="[]string"
+time="2018-09-14T02:29:24+02:00" level=info msg=Ports
+time="2018-09-14T02:29:24+02:00" level=info msg="[]"
+time="2018-09-14T02:29:24+02:00" level=info msg="[]string"
+time="2018-09-14T02:29:24+02:00" level=info msg=Build
+time="2018-09-14T02:29:24+02:00" level=info
+time="2018-09-14T02:29:24+02:00" level=info msg=./hello-world-service
+time="2018-09-14T02:29:24+02:00" level=info msg=Image
+time="2018-09-14T02:29:24+02:00" level=info
+time="2018-09-14T02:29:24+02:00" level=info msg="ansjin/three_microservice:hello"
+time="2018-09-14T02:29:24+02:00" level=info msg=Ports
+time="2018-09-14T02:29:24+02:00" level=info msg="[]"
+time="2018-09-14T02:29:24+02:00" level=info msg="[]string"
+time="2018-09-14T02:29:24+02:00" level=info msg=Build
+time="2018-09-14T02:29:24+02:00" level=info
+time="2018-09-14T02:29:24+02:00" level=info msg=./product-descp-service
+time="2018-09-14T02:29:24+02:00" level=info msg=Image
+time="2018-09-14T02:29:24+02:00" level=info
+time="2018-09-14T02:29:24+02:00" level=info msg="ansjin/three_microservice:productdescp"
+time="2018-09-14T02:29:24+02:00" level=info msg=Ports
+time="2018-09-14T02:29:24+02:00" level=info msg="[]"
+time="2018-09-14T02:29:24+02:00" level=info msg="[]string"
+time="2018-09-14T02:29:24+02:00" level=info msg=Build
+time="2018-09-14T02:29:24+02:00" level=info
+time="2018-09-14T02:29:24+02:00" level=info msg=./server
+time="2018-09-14T02:29:24+02:00" level=info msg=Depends_on
+time="2018-09-14T02:29:24+02:00" level=info msg="[]"
+time="2018-09-14T02:29:24+02:00" level=info msg="[]string"
+time="2018-09-14T02:29:24+02:00" level=info msg=Image
+time="2018-09-14T02:29:24+02:00" level=info
+time="2018-09-14T02:29:24+02:00" level=info msg="ansjin/three_microservice:server"
+time="2018-09-14T02:29:24+02:00" level=info msg=Links
+time="2018-09-14T02:29:24+02:00" level=info msg="[]"
+time="2018-09-14T02:29:24+02:00" level=info msg="[]string"
+time="2018-09-14T02:29:24+02:00" level=info msg=Ports
+time="2018-09-14T02:29:24+02:00" level=info msg="[]"
+time="2018-09-14T02:29:24+02:00" level=info msg="[]string"
+time="2018-09-14T02:29:24+02:00" level=info msg="Appending HOXY_APP as the environment variable"
+time="2018-09-14T02:29:35+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:29:35+02:00" level=error
+time="2018-09-14T02:29:35+02:00" level=info
+time="2018-09-14T02:29:51+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:29:51+02:00" level=error
+time="2018-09-14T02:29:51+02:00" level=info
+time="2018-09-14T02:30:01+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:30:01+02:00" level=error
+time="2018-09-14T02:30:01+02:00" level=info
+time="2018-09-14T02:30:01+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:30:01+02:00" level=error
+time="2018-09-14T02:30:01+02:00" level=info
+time="2018-09-14T02:31:10+02:00" level=info msg="filename=test"
+time="2018-09-14T02:31:10+02:00" level=info msg="version: '2'\r\nservices:\r\n  server:\r\n    build: ./server\r\n    image: ansjin/three_microservice:server\r\n    ports:\r\n      - \"8080:8080\"\r\n    depends_on:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n    links:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n  hello-world-service:\r\n    build: ./hello-world-service\r\n    image: ansjin/three_microservice:hello\r\n    ports:\r\n      - \"9001:9001\"\r\n  product-descp-service:\r\n    build: ./product-descp-service\r\n    image: ansjin/three_microservice:productdescp\r\n    ports:\r\n      - \"9002:9002\"\r\n  dummy:\r\n    build: ./dummy\r\n    image: ansjin/three_microservice:dummy\r\n    ports:\r\n      - \"9005:9005\"\r\n    depends_on:\r\n      - 'server'\r\n    links:\r\n      - 'server'\r\n\r\n"
+time="2018-09-14T02:31:10+02:00" level=info msg=Build
+time="2018-09-14T02:31:10+02:00" level=info
+time="2018-09-14T02:31:10+02:00" level=info msg=./dummy
+time="2018-09-14T02:31:10+02:00" level=info msg=Depends_on
+time="2018-09-14T02:31:10+02:00" level=info msg="[]"
+time="2018-09-14T02:31:10+02:00" level=info msg="[]string"
+time="2018-09-14T02:31:10+02:00" level=info msg=Image
+time="2018-09-14T02:31:10+02:00" level=info
+time="2018-09-14T02:31:10+02:00" level=info msg="ansjin/three_microservice:dummy"
+time="2018-09-14T02:31:10+02:00" level=info msg=Links
+time="2018-09-14T02:31:10+02:00" level=info msg="[]"
+time="2018-09-14T02:31:10+02:00" level=info msg="[]string"
+time="2018-09-14T02:31:10+02:00" level=info msg=Ports
+time="2018-09-14T02:31:10+02:00" level=info msg="[]"
+time="2018-09-14T02:31:10+02:00" level=info msg="[]string"
+time="2018-09-14T02:31:10+02:00" level=info msg=Build
+time="2018-09-14T02:31:10+02:00" level=info
+time="2018-09-14T02:31:10+02:00" level=info msg=./hello-world-service
+time="2018-09-14T02:31:10+02:00" level=info msg=Image
+time="2018-09-14T02:31:10+02:00" level=info
+time="2018-09-14T02:31:10+02:00" level=info msg="ansjin/three_microservice:hello"
+time="2018-09-14T02:31:10+02:00" level=info msg=Ports
+time="2018-09-14T02:31:10+02:00" level=info msg="[]"
+time="2018-09-14T02:31:10+02:00" level=info msg="[]string"
+time="2018-09-14T02:31:10+02:00" level=info msg=Build
+time="2018-09-14T02:31:10+02:00" level=info
+time="2018-09-14T02:31:10+02:00" level=info msg=./product-descp-service
+time="2018-09-14T02:31:10+02:00" level=info msg=Image
+time="2018-09-14T02:31:10+02:00" level=info
+time="2018-09-14T02:31:10+02:00" level=info msg="ansjin/three_microservice:productdescp"
+time="2018-09-14T02:31:10+02:00" level=info msg=Ports
+time="2018-09-14T02:31:10+02:00" level=info msg="[]"
+time="2018-09-14T02:31:10+02:00" level=info msg="[]string"
+time="2018-09-14T02:31:10+02:00" level=info msg=Links
+time="2018-09-14T02:31:10+02:00" level=info msg="[]"
+time="2018-09-14T02:31:10+02:00" level=info msg="[]string"
+time="2018-09-14T02:31:10+02:00" level=info msg=Ports
+time="2018-09-14T02:31:10+02:00" level=info msg="[]"
+time="2018-09-14T02:31:10+02:00" level=info msg="[]string"
+time="2018-09-14T02:31:10+02:00" level=info msg=Build
+time="2018-09-14T02:31:10+02:00" level=info
+time="2018-09-14T02:31:10+02:00" level=info msg=./server
+time="2018-09-14T02:31:10+02:00" level=info msg=Depends_on
+time="2018-09-14T02:31:10+02:00" level=info msg="[]"
+time="2018-09-14T02:31:10+02:00" level=info msg="[]string"
+time="2018-09-14T02:31:10+02:00" level=info msg=Image
+time="2018-09-14T02:31:10+02:00" level=info
+time="2018-09-14T02:31:10+02:00" level=info msg="ansjin/three_microservice:server"
+time="2018-09-14T02:31:10+02:00" level=info msg="Appending HOXY_APP as the environment variable"
+time="2018-09-14T02:31:10+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:31:10+02:00" level=error
+time="2018-09-14T02:31:10+02:00" level=info
+time="2018-09-14T02:31:10+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:31:10+02:00" level=error
+time="2018-09-14T02:31:10+02:00" level=info
+time="2018-09-14T02:31:10+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:31:10+02:00" level=error
+time="2018-09-14T02:31:10+02:00" level=info
+time="2018-09-14T02:31:10+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:31:10+02:00" level=error
+time="2018-09-14T02:31:10+02:00" level=info
+time="2018-09-14T02:33:00+02:00" level=info msg="filename=test"
+time="2018-09-14T02:33:00+02:00" level=info msg="version: '2'\r\nservices:\r\n  server:\r\n    build: ./server\r\n    image: ansjin/three_microservice:server\r\n    ports:\r\n      - \"8080:8080\"\r\n    depends_on:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n    links:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n  hello-world-service:\r\n    build: ./hello-world-service\r\n    image: ansjin/three_microservice:hello\r\n    ports:\r\n      - \"9001:9001\"\r\n  product-descp-service:\r\n    build: ./product-descp-service\r\n    image: ansjin/three_microservice:productdescp\r\n    ports:\r\n      - \"9002:9002\"\r\n  dummy:\r\n    build: ./dummy\r\n    image: ansjin/three_microservice:dummy\r\n    ports:\r\n      - \"9005:9005\"\r\n    depends_on:\r\n      - 'server'\r\n    links:\r\n      - 'server'\r\n\r\n"
+time="2018-09-14T02:33:00+02:00" level=info msg=Ports
+time="2018-09-14T02:33:00+02:00" level=info msg="[]"
+time="2018-09-14T02:33:00+02:00" level=info msg="[]string"
+time="2018-09-14T02:33:00+02:00" level=info msg=Build
+time="2018-09-14T02:33:00+02:00" level=info
+time="2018-09-14T02:33:00+02:00" level=info msg=./dummy
+time="2018-09-14T02:33:00+02:00" level=info msg=Depends_on
+time="2018-09-14T02:33:00+02:00" level=info msg="[]"
+time="2018-09-14T02:33:00+02:00" level=info msg="[]string"
+time="2018-09-14T02:33:00+02:00" level=info msg=Image
+time="2018-09-14T02:33:00+02:00" level=info
+time="2018-09-14T02:33:00+02:00" level=info msg="ansjin/three_microservice:dummy"
+time="2018-09-14T02:33:00+02:00" level=info msg=Links
+time="2018-09-14T02:33:00+02:00" level=info msg="[]"
+time="2018-09-14T02:33:00+02:00" level=info msg="[]string"
+time="2018-09-14T02:33:00+02:00" level=info msg=Build
+time="2018-09-14T02:33:00+02:00" level=info
+time="2018-09-14T02:33:00+02:00" level=info msg=./hello-world-service
+time="2018-09-14T02:33:00+02:00" level=info msg=Image
+time="2018-09-14T02:33:00+02:00" level=info
+time="2018-09-14T02:33:00+02:00" level=info msg="ansjin/three_microservice:hello"
+time="2018-09-14T02:33:00+02:00" level=info msg=Ports
+time="2018-09-14T02:33:00+02:00" level=info msg="[]"
+time="2018-09-14T02:33:00+02:00" level=info msg="[]string"
+time="2018-09-14T02:33:00+02:00" level=info msg=Build
+time="2018-09-14T02:33:00+02:00" level=info
+time="2018-09-14T02:33:00+02:00" level=info msg=./product-descp-service
+time="2018-09-14T02:33:00+02:00" level=info msg=Image
+time="2018-09-14T02:33:00+02:00" level=info
+time="2018-09-14T02:33:00+02:00" level=info msg="ansjin/three_microservice:productdescp"
+time="2018-09-14T02:33:00+02:00" level=info msg=Ports
+time="2018-09-14T02:33:00+02:00" level=info msg="[]"
+time="2018-09-14T02:33:00+02:00" level=info msg="[]string"
+time="2018-09-14T02:33:00+02:00" level=info msg=Links
+time="2018-09-14T02:33:00+02:00" level=info msg="[]"
+time="2018-09-14T02:33:00+02:00" level=info msg="[]string"
+time="2018-09-14T02:33:00+02:00" level=info msg=Ports
+time="2018-09-14T02:33:00+02:00" level=info msg="[]"
+time="2018-09-14T02:33:00+02:00" level=info msg="[]string"
+time="2018-09-14T02:33:00+02:00" level=info msg=Build
+time="2018-09-14T02:33:00+02:00" level=info
+time="2018-09-14T02:33:00+02:00" level=info msg=./server
+time="2018-09-14T02:33:00+02:00" level=info msg=Depends_on
+time="2018-09-14T02:33:00+02:00" level=info msg="[]"
+time="2018-09-14T02:33:00+02:00" level=info msg="[]string"
+time="2018-09-14T02:33:00+02:00" level=info msg=Image
+time="2018-09-14T02:33:00+02:00" level=info
+time="2018-09-14T02:33:00+02:00" level=info msg="ansjin/three_microservice:server"
+time="2018-09-14T02:33:00+02:00" level=info msg="Appending HOXY_APP as the environment variable"
+time="2018-09-14T02:33:00+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:33:00+02:00" level=error
+time="2018-09-14T02:33:00+02:00" level=info
+time="2018-09-14T02:33:00+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:33:00+02:00" level=error
+time="2018-09-14T02:33:00+02:00" level=info
+time="2018-09-14T02:33:00+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:33:00+02:00" level=error
+time="2018-09-14T02:33:00+02:00" level=info
+time="2018-09-14T02:33:00+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:33:00+02:00" level=error
+time="2018-09-14T02:33:00+02:00" level=info
+time="2018-09-14T02:35:18+02:00" level=info msg="filename=test"
+time="2018-09-14T02:35:18+02:00" level=info msg="version: '2'\r\nservices:\r\n  server:\r\n    build: ./server\r\n    image: ansjin/three_microservice:server\r\n    ports:\r\n      - \"8080:8080\"\r\n    depends_on:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n    links:\r\n      - 'hello-world-service'\r\n      - 'product-descp-service'\r\n  hello-world-service:\r\n    build: ./hello-world-service\r\n    image: ansjin/three_microservice:hello\r\n    ports:\r\n      - \"9001:9001\"\r\n  product-descp-service:\r\n    build: ./product-descp-service\r\n    image: ansjin/three_microservice:productdescp\r\n    ports:\r\n      - \"9002:9002\"\r\n  dummy:\r\n    build: ./dummy\r\n    image: ansjin/three_microservice:dummy\r\n    ports:\r\n      - \"9005:9005\"\r\n    depends_on:\r\n      - 'server'\r\n    links:\r\n      - 'server'\r\n\r\n"
+time="2018-09-14T02:35:18+02:00" level=info msg=Build
+time="2018-09-14T02:35:18+02:00" level=info
+time="2018-09-14T02:35:18+02:00" level=info msg=./hello-world-service
+time="2018-09-14T02:35:18+02:00" level=info msg=Image
+time="2018-09-14T02:35:18+02:00" level=info
+time="2018-09-14T02:35:18+02:00" level=info msg="ansjin/three_microservice:hello"
+time="2018-09-14T02:35:18+02:00" level=info msg=Ports
+time="2018-09-14T02:35:18+02:00" level=info msg="[]"
+time="2018-09-14T02:35:18+02:00" level=info msg="[]string"
+time="2018-09-14T02:35:18+02:00" level=info msg=Build
+time="2018-09-14T02:35:18+02:00" level=info
+time="2018-09-14T02:35:18+02:00" level=info msg=./product-descp-service
+time="2018-09-14T02:35:18+02:00" level=info msg=Image
+time="2018-09-14T02:35:18+02:00" level=info
+time="2018-09-14T02:35:18+02:00" level=info msg="ansjin/three_microservice:productdescp"
+time="2018-09-14T02:35:18+02:00" level=info msg=Ports
+time="2018-09-14T02:35:18+02:00" level=info msg="[]"
+time="2018-09-14T02:35:18+02:00" level=info msg="[]string"
+time="2018-09-14T02:35:18+02:00" level=info msg=Image
+time="2018-09-14T02:35:18+02:00" level=info
+time="2018-09-14T02:35:18+02:00" level=info msg="ansjin/three_microservice:server"
+time="2018-09-14T02:35:18+02:00" level=info msg=Links
+time="2018-09-14T02:35:18+02:00" level=info msg="[]"
+time="2018-09-14T02:35:18+02:00" level=info msg="[]string"
+time="2018-09-14T02:35:18+02:00" level=info msg=Ports
+time="2018-09-14T02:35:18+02:00" level=info msg="[]"
+time="2018-09-14T02:35:18+02:00" level=info msg="[]string"
+time="2018-09-14T02:35:18+02:00" level=info msg=Build
+time="2018-09-14T02:35:18+02:00" level=info
+time="2018-09-14T02:35:18+02:00" level=info msg=./server
+time="2018-09-14T02:35:18+02:00" level=info msg=Depends_on
+time="2018-09-14T02:35:18+02:00" level=info msg="[]"
+time="2018-09-14T02:35:18+02:00" level=info msg="[]string"
+time="2018-09-14T02:35:18+02:00" level=info msg=Ports
+time="2018-09-14T02:35:18+02:00" level=info msg="[]"
+time="2018-09-14T02:35:18+02:00" level=info msg="[]string"
+time="2018-09-14T02:35:18+02:00" level=info msg=Build
+time="2018-09-14T02:35:18+02:00" level=info
+time="2018-09-14T02:35:18+02:00" level=info msg=./dummy
+time="2018-09-14T02:35:18+02:00" level=info msg=Depends_on
+time="2018-09-14T02:35:18+02:00" level=info msg="[]"
+time="2018-09-14T02:35:18+02:00" level=info msg="[]string"
+time="2018-09-14T02:35:18+02:00" level=info msg=Image
+time="2018-09-14T02:35:18+02:00" level=info
+time="2018-09-14T02:35:18+02:00" level=info msg="ansjin/three_microservice:dummy"
+time="2018-09-14T02:35:18+02:00" level=info msg=Links
+time="2018-09-14T02:35:18+02:00" level=info msg="[]"
+time="2018-09-14T02:35:18+02:00" level=info msg="[]string"
+time="2018-09-14T02:35:18+02:00" level=info msg="Appending HOXY_APP as the environment variable"
+time="2018-09-14T02:35:18+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:35:18+02:00" level=error
+time="2018-09-14T02:35:18+02:00" level=info
+time="2018-09-14T02:35:18+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:35:18+02:00" level=error
+time="2018-09-14T02:35:18+02:00" level=info
+time="2018-09-14T02:35:18+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:35:18+02:00" level=error
+time="2018-09-14T02:35:18+02:00" level=info
+time="2018-09-14T02:35:18+02:00" level=info msg="Command : dig +short myip.opendns.com @resolver1.opendns.com"
+time="2018-09-14T02:35:18+02:00" level=error
+time="2018-09-14T02:35:18+02:00" level=info

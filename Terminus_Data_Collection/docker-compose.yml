@@ -1,0 +1,133 @@
+ version: "2"
+ services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
+    container_name: "elasticsearch"
+    environment:
+      - 'http.host=0.0.0.0'
+      - 'transport.host=127.0.0.1'
+      - 'ELASTIC_PASSWORD=asdfgh'
+    ports:
+      - 9200:9200
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.3.0
+    container_name: "kibana"
+    environment:
+      - ELASTICSEARCH_USERNAME=kibana
+      - ELASTICSEARCH_PASSWORD=asdfgh
+    ports:
+      - '5601:5601'
+    depends_on:
+      - 'elasticsearch'
+  logstash:
+    image: terminusimages/logstash:latest
+    container_name: "logstash"
+    environment:
+      - 'xpack.monitoring.elasticsearch.password=asdfgh'
+    ports:
+      - 5000:5000
+    depends_on:
+      - 'elasticsearch'
+      - 'setup_logstash'
+  # Run a short-lived container to set up Logstash.
+  setup_logstash:
+    image: terminusimages/setup_logstash:latest
+    container_name: "setup_logstash"
+    environment:
+      - 'ELASTIC_PASSWORD=asdfgh'
+    depends_on:
+      - 'elasticsearch'
+  setup_kibana:
+    image: terminusimages/setup_kibana:latest
+    container_name: "setup_kibana"
+    environment:
+      - 'ELASTIC_PASSWORD=asdfgh'
+    depends_on:
+      - 'elasticsearch'
+  k6:
+    image: terminusimages/loadgen:latest
+    container_name: "loadgen"
+    environment:
+      - INFLUXDB_USER=root
+      - INFLUXDB_PASS=root
+      - INFLUXDB_HOST=influxdb
+      - INFLUXDB_PORT=8086
+    ports:
+      - "9002:9002"
+    links:
+      - influxdb
+      - logstash
+    depends_on:
+      - influxdb
+      - logstash
+    restart: always
+  terminus_data_collection:
+    container_name: 'terminus_data_collection'
+    image: terminusimages/terminus_data_collection:latest
+    build: 'server'
+    ports:
+      - '8081:8081'
+    environment:
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - INFLUXDB_USER
+      - INFLUXDB_PASS
+      - INFLUXDB_HOST=influxdb
+      - INFLUXDB_PORT=8086
+      - AWS_KEY
+      - AWS_SECRET
+      - AWS_DEFAULT_REGION
+      - AWS_DEFAULT_ZONE
+      - KUBE_CLUSTER_NAME
+      - KOPS_CONTAINER_NAME
+      - KOPS_S3_BUCKET_NAME
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/ssl/certs:/etc/ssl/certs
+      - ./data:/data
+    depends_on:
+      - mongodb
+      - logstash
+      - k6
+    links:
+      - mongodb
+      - logstash
+      - k6
+    restart: always
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+    volumes:
+      - ./mongo/db:/data/db
+    ports:
+        - "27017:27017"
+  influxdb:
+    image: influxdb:latest
+    container_name: "influxdb"
+    ports:
+      - "8086:8086"
+      - "8090:8090"
+      - "8088:8088"
+    environment:
+      - INFLUXDB_REPORTING_DISABLED=false
+      - INFLUXDB_HTTP_AUTH_ENABLED=false
+      - INFLUXDB_BIND_ADDRESS=:8088
+    volumes:
+      # Data persistency
+      # sudo mkdir -p /srv/docker/influxdb/data
+      - /srv/docker/influxdb/data:/var/lib/influxdb
+  grafana:
+    image: terminusimages/grafana:latest
+    container_name: "grafana"
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    links:
+      - influxdb
+    depends_on:
+      - influxdb

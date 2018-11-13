@@ -1,0 +1,146 @@
+{{define "content"}}
+
+<!-- Right Panel -->
+
+<div id="right-panel" class="right-panel">
+
+<!-- Left Panel -->
+
+
+<!-- Right Panel -->
+
+<div id="right-panel" class="right-panel">
+
+    <!-- Header-->
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>On-going/Completed Tests</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li><a href="/">Dashboard</a></li>
+                        <li><a href="#">Ongoing/Completed Tests</a></li>
+                        <li class="active">MSC Tests</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content mt-3">
+        <div class="animated fadeIn">
+
+
+            <div class="">
+
+                <table id="tableTests" class="stripe" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>TestName</th>
+                        <th>StartTime</th>
+                        <th>AppName</th>
+                        <th>NodeInstanceType</th>
+                        <th>Limits</th>
+                        <th>Replicas</th>
+                        <th>Phase</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>TestName</th>
+                        <th>StartTime</th>
+                        <th>AppName</th>
+                        <th>NodeInstanceType</th>
+                        <th>Limits</th>
+                        <th>Replicas</th>
+                        <th>Phase</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+       </div><!-- .animated -->
+    </div><!-- .content -->
+
+
+</div><!-- /#right-panel -->
+
+<!-- Right Panel -->
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".standardSelect").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+            width: "100%"
+        });
+    });
+    /* Formatting function for row details - modify as you need */
+    function format ( d ) {
+        // `d` is the original data object for the row
+        return '<table cellpadding="0" cellspacing="25px" style="table-layout: fixed;width: 100%;\n' +
+                '    display: table;">'+
+                '<tr>'+
+                '<td><a href="'+d.Grafana+'" class="btn btn-block btn-outline-primary">Grafana</a></td>'+
+                '<td><a href="'+d.Kibana+'" class="btn btn-block btn-outline-primary">Kibana</a></td>'+
+                '<td><a href="'+d.Logs+'" class="btn btn-block btn-outline-primary">Logs</a></td>'+
+                '</tr>'+
+                '</table>';
+    }
+    $(document).ready(function () {
+        fetch("/getAllTestsInfo")
+                .then(response => response.json())
+                .then(allTestsInfo => {
+                    console.log(allTestsInfo);
+                    let allData = [];
+                    //Once we fetch the list, we iterate over it
+
+                    var table = $('#tableTests').DataTable({
+                            "columns": [
+                                {
+                                    "className":      'details-control',
+                                    "orderable":      false,
+                                    "data":           null,
+                                    "defaultContent": ''
+                                },
+                                { "data": "ContainerName" },
+                                { "data": "StartTimestamp" },
+                                { "data": "AppName" },
+                                { "data": "NodeInstanceType" },
+                                { "data": "LimitingInstanceType" },
+                                { "data": "Replicas" },
+                                { "data": "Phase" }
+                            ],
+                            data: allTestsInfo
+                        });
+
+                        // Add event listener for opening and closing details
+                        $('#tableTests tbody').on('click', 'td.details-control', function () {
+                            var tr = $(this).closest('tr');
+                            var row = table.row( tr );
+
+                            if ( row.child.isShown() ) {
+                                // This row is already open - close it
+                                row.child.hide();
+                                tr.removeClass('shown');
+                            }
+                            else {
+                                // Open this row
+                                row.child( format(row.data()) ).show();
+                                tr.addClass('shown');
+                            }
+                        } );
+
+                });
+
+    } );
+</script>
+{{end}}

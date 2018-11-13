@@ -1,0 +1,3300 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is the api page for all APIs in TERMINUS",
+        "title": "TERMINUSINTF APIs",
+        "contact": {
+            "name": "Anshul Jindal",
+            "email": "anshul.jindal@tum.de"
+        },
+        "license": {
+            "name": "GPL-3.0",
+            "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8082",
+    "basePath": "/",
+    "paths": {
+        "/analyzeKubeEvents/{apptype}/{appname}/": {
+            "get": {
+                "description": "Analyze the kube events stored in db from conducting pod booting time test and store them back to db",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "POD"
+                ],
+                "summary": "Analyze the kube events stored in db from conducting pod booting time test and store them back to db",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "completed",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/collectDataLimits/{numsvs}/{nodecount}/{replicas}/{instancetype}/{maxRPS}/{limitinginstancetype}/{apptype}/{appname}/{apiendpoint}": {
+            "get": {
+                "description": "Collect the non limits data for an application on a VM /collectDataLimits/1/1/1/t2.medium/350/t2.nano/dbaccess/movieapp/_api_movies",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "START_TEST"
+                ],
+                "summary": "Collect the non limits data for an application on a VM",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "number of services in microservice",
+                        "name": "numsvs",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of replicas of service ",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " host instance type ",
+                        "name": "instancetype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " limitinginstancetype instance type on main instance",
+                        "name": "limitinginstancetype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " api end point specify like _api_test for /api/test",
+                        "name": "apiendpoint",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " max RPS",
+                        "name": "maxRPS",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/collectDataNoLimits/{numsvs}/{nodecount}/{replicas}/{instancetype}/{maxRPS}/{apptype}/{appname}/{apiendpoint}": {
+            "get": {
+                "description": "Collect the non limits data for an application on a VM /collectDataNoLimits/1/1/1/t2.nano/3000/web/webacapp/_api_web",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "START_TEST"
+                ],
+                "summary": "Collect the non limits data for an application on a VM",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "number of services in microservice",
+                        "name": "numsvs",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of replicas of service ",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " host instance type ",
+                        "name": "instancetype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " api end point specify like _api_test for /api/test",
+                        "name": "apiendpoint",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " max RPS ",
+                        "name": "maxRPS",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/conductTestToCalculatePodBootTime/{numsvs}/{nodecount}/{replicas}/{instancetype}/{maxRPS}/{limitinginstancetype}/{apptype}/{appname}/{apiendpoint}/": {
+            "get": {
+                "description": "Collect the data for pod botting time /conductTestToCalculatePodBootTime/1/1/1/t2.xlarge/40/t2.large/compute/primeapp/_api_prime",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "START_TEST"
+                ],
+                "summary": "Collect the data for pod botting time",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "number of services in microservice",
+                        "name": "numsvs",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of replicas of service ",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " host instance type ",
+                        "name": "instancetype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " limitinginstancetype instance type on main instance",
+                        "name": "limitinginstancetype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " api end point specify like _api_test for /api/test",
+                        "name": "apiendpoint",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " max RPS",
+                        "name": "maxRPS",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/doBruteForceTraining/{apptype}/{appname}/{mainservicename": {
+            "get": {
+                "description": "Do brute force training for a particular app",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TRAINING_MSC"
+                ],
+                "summary": "Do brute force training for a particular app",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Started",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/doBruteForceTrainingReplicas/{apptype}/{appname}/{mainservicename": {
+            "get": {
+                "description": "Do brute force training for replicas prediction for a particular app",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TRAINING_MSC"
+                ],
+                "summary": "Do brute force training for replicas prediction for a particular app",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Started",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/doSmartTestAllTraining/{apptype}/{appname}/{mainservicename": {
+            "get": {
+                "description": "Do smart training for a particular app",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TRAINING_MSC"
+                ],
+                "summary": "Do smart training for a particular app",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Started",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getAllExperimentalTRN": {
+            "get": {
+                "description": "Get all MSC experimental, predicted and smart along with replicas predicted for all apps from DB",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GET_ANALYZED_MSCs"
+                ],
+                "summary": "Get all MSC experimental, predicted and smart along with replicas predicted for all apps from DB",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.MSCValueObject"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getAllTestsInfo": {
+            "get": {
+                "description": "Get all ongoing test information",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GENERAL"
+                ],
+                "summary": "Get all ongoing test information",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.TestInformation"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getAllVMTypesBootShutDownDataAvg": {
+            "get": {
+                "description": "Gives all the Booting and shutting down data following avg approach",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "INSTANCE_VM_BOOTING_TIME"
+                ],
+                "summary": "Gives all the Booting and shutting down data following avg approach",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "specify it yes if to take walues from the db and update the resulting average",
+                        "name": "takeNewValues",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.VmTemplateData"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getAllVMTypesBootShutDownDataRegression": {
+            "get": {
+                "description": "Gives all the Booting and shutting down data",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "INSTANCE_VM_BOOTING_TIME"
+                ],
+                "summary": "Gives all the Booting and shutting down data",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.InstanceRegression"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getAnalyzedKubeEvents/{apptype}/{appname}/": {
+            "get": {
+                "description": "Get Analyzed Kube events from db",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "POD"
+                ],
+                "summary": "Get Analyzed Kube events from db",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.KubeEventsMongoStoreObject"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getAppNames/{apptype}": {
+            "get": {
+                "description": "Get App Names based on app type",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GENERAL"
+                ],
+                "summary": "Get App Names based on app type",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getAppTypes": {
+            "get": {
+                "description": "Get App Types",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GENERAL"
+                ],
+                "summary": "Get App Types",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getExperimentalTRNsMongoDB/{apptype}/{appname}/{mainservicename}{hostinstance}": {
+            "get": {
+                "description": "Get all MSC experimental, predicted and smart along with replicas predicted for an app on a particular instance type from DB",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GET_ANALYZED_MSCs"
+                ],
+                "summary": "Get all MSC experimental, predicted and smart along with replicas predicted for an app on a particular instance type from DB",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "type of host instance",
+                        "name": "hostinstance",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.MSCValueObject"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getExperimentalTRNsMongoDBAll/{apptype}/{appname}/{mainservicename}": {
+            "get": {
+                "description": "Get all MSC experimental, predicted and smart along with replicas predicted for an app from DB",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GET_ANALYZED_MSCs"
+                ],
+                "summary": "Get all MSC experimental, predicted and smart along with replicas predicted for an app from DB",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.MSCValueObject"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getInstancesPerfData/{apptype}/{appname}/{mainservicename}/{comparinginstance}/{replicas}/{hostinstance}": {
+            "get": {
+                "description": "Get the resources data for that particular instance from all host instances on which it can be possible deployed and also the actual VM performance",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CONDUCTED_EXPERIMENTS_DATA_MSC"
+                ],
+                "summary": "Get the resources data for that particular instance from all host instances on which it can be possible deployed and also the actual VM performance",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of replicas of service ",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " Instance to compare ",
+                        "name": "comparinginstance",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.NodeValues"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getInstancesRequestsData/{apptype}/{appname}/{mainservicename}/{comparinginstance}/{replicas}/{hostinstance}": {
+            "get": {
+                "description": "Get the requests data for that particular instance from the given host instance on which it is deployed along with the actual Instance data",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CONDUCTED_EXPERIMENTS_DATA_MSC"
+                ],
+                "summary": "Get the requests data for that particular instance from the given host instance on which it is deployed along with the actual Instance data",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of replicas of service ",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " hostinstance on which the comparing instance is deployed ",
+                        "name": "hostinstance",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " Instance to compare ",
+                        "name": "comparinginstance",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.RequestsData"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getPerVMTypeAllBootShutDownData": {
+            "get": {
+                "description": "Gives all the Booting and shutting down data",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "INSTANCE_VM_BOOTING_TIME_EXTERNAL_USE"
+                ],
+                "summary": "Gives all the Booting and shutting down data for a VM type",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "instance type",
+                        "name": "instanceType",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "aws region ",
+                        "name": "region",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "appraoch avg or regression_vm_boot, by default it is avg",
+                        "name": "appraoch",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cloud service provider..current;y it is aws only",
+                        "name": "csp",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/TERMINUS.VMBootShutDownRatePerInstanceTypeAll"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getPerVMTypeOneBootShutDownData": {
+            "get": {
+                "description": "Gives all the Booting and shutting down data",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "INSTANCE_VM_BOOTING_TIME_EXTERNAL_USE"
+                ],
+                "summary": "Gives all the Booting and shutting down data for a VM type",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "number of instances",
+                        "name": "numInstances",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "instance type",
+                        "name": "instanceType",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "aws region ",
+                        "name": "region",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "appraoch avg or regression, by default it is avg",
+                        "name": "appraoch",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cloud service provider..current;y it is aws only",
+                        "name": "csp",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/TERMINUS.VMBootShutDownRatePerInstanceTypeOne"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getPodBootingTime/{apptype}/{appname}/": {
+            "get": {
+                "description": "Get Analyzed Kube events from db",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "POD"
+                ],
+                "summary": "Get Pod Booting time from db",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.PodBootingTimeStruct"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getPredictedRegressionReplicas/{apptype}/{appname}/{mainservicename}{msc}/{numcoresutil}/{numcoreslimit}/{nummemlimit}": {
+            "get": {
+                "description": "Get Number of replicas predicted",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GET_ANALYZED_MSCs"
+                ],
+                "summary": "Get Number of replicas predicted",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "msc expected per seconds (RPS) ",
+                        "name": "msc",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "num of cores utilization",
+                        "name": "numcoresutil",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "num of cores limit",
+                        "name": "numcoreslimit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "num of mem limit",
+                        "name": "nummemlimit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Predicted MSC replicas",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/TERMINUS.MSCInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getPredictedRegressionTRN/{apptype}/{appname}/{mainservicename}{replicas}/{numcoresutil}/{numcoreslimit}/{nummemlimit}": {
+            "get": {
+                "description": "Get predicted MSC value based on the inputs",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GET_ANALYZED_MSCs"
+                ],
+                "summary": "Get predicted MSC value based on the inputs (in seconds)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "replicas for application",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "num of cores utilization",
+                        "name": "numcoresutil",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "num of cores limit",
+                        "name": "numcoreslimit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "num of mem limit",
+                        "name": "nummemlimit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Predicted MSC replicas",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/TERMINUS.MSCInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getPredictedRegressionTRNSmart/{apptype}/{appname}/{mainservicename}{numcoresutil}{nummemutil}{testname}": {
+            "get": {
+                "description": "Get Number of replicas predicted for a particular test",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GET_ANALYZED_MSCs"
+                ],
+                "summary": "Get MSC prediction based on smart test for a particular test",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "name of the test",
+                        "name": "testname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "num of cores utilization",
+                        "name": "numcoresutil",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "num of mem limit",
+                        "name": "nummemUtil",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Predicted MSC",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getRMSErrorMongoDB/{apptype}/{appname}/{mainservicename}": {
+            "get": {
+                "description": "Get  RMS error trained using the brute force",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GET_ANALYZED_MSCs"
+                ],
+                "summary": "Get  RMS error trained using the brute force",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/TERMINUS.MSCValueObject"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getRegressionTRNsMongoDBAll/{apptype}/{appname}/{mainservicename}": {
+            "get": {
+                "description": "Get  MSCs for different configurations predicted for an app  using regression",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GET_ANALYZED_MSCs"
+                ],
+                "summary": "Get  MSCs for different configurations predicted for an app  using regression",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/TERMINUS.MSCValueObject"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getRelevantInstanceActualInstanceDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{hostinstance}/{comparinginstance}/{replicas}": {
+            "get": {
+                "description": "Get the resources data for that particular instance from the given host instance on which it is deployed along with the actual Instance data",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CONDUCTED_EXPERIMENTS_DATA_MSC"
+                ],
+                "summary": "Get the resources data for that particular instance from the given host instance on which it is deployed along with the actual Instance data",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of replicas of service ",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " hostinstance on which the comparing instance is deployed ",
+                        "name": "hostinstance",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " Instance to compare ",
+                        "name": "comparinginstance",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.NodeValues"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getRelevantInstanceActualInstanceRequestsDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{hostinstance}/{comparinginstance}/{replicas}": {
+            "get": {
+                "description": "Get the requests data for that particular instance from the given host instance on which it is deployed along with the actual Instance data",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CONDUCTED_EXPERIMENTS_DATA_MSC"
+                ],
+                "summary": "Get the requests data for that particular instance from the given host instance on which it is deployed along with the actual Instance data",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of replicas of service ",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " hostinstance on which the comparing instance is deployed ",
+                        "name": "hostinstance",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " Instance to compare ",
+                        "name": "comparinginstance",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.RequestsData"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getRelevantInstanceDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{hostinstance}/{comparinginstance}/{replicas}": {
+            "get": {
+                "description": "Get the resources data for that particular instance from the given host instance on which it is deployed",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CONDUCTED_EXPERIMENTS_DATA_MSC"
+                ],
+                "summary": "Get the resources data for that particular instance from the given host instance on which it is deployed",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of replicas of service ",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " hostinstance on which the comparing instance is deployed ",
+                        "name": "hostinstance",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " Instance to compare ",
+                        "name": "comparinginstance",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.NodeValues"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getRelevantInstanceRequestsDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{hostinstance}/{comparinginstance}/{replicas}": {
+            "get": {
+                "description": "Get the Requests data for that particular instance from the given host instance on which it is deployed",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CONDUCTED_EXPERIMENTS_DATA_MSC"
+                ],
+                "summary": "Get the Requests data for that particular instance from the given host instance on which it is deployed",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of replicas of service ",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " hostinstance on which the comparing instance is deployed ",
+                        "name": "hostinstance",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " Instance to compare ",
+                        "name": "comparinginstance",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.RequestsData"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getRelevantInstancesActualInstanceDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{comparinginstance}/{replicas}": {
+            "get": {
+                "description": "Get the resources data for that particular instance from all host instances on which it can be possible deployed and also the actual VM performance",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CONDUCTED_EXPERIMENTS_DATA_MSC"
+                ],
+                "summary": "Get the resources data for that particular instance from all host instances on which it can be possible deployed and also the actual VM performance",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of replicas of service ",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " Instance to compare ",
+                        "name": "comparinginstance",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.NodeValues"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getRelevantInstancesActualInstanceRequestsDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{comparinginstance}/{replicas}": {
+            "get": {
+                "description": "Get the requests data for that particular instance from all host instances on which it can be possible deployed and also the actual VM performance",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CONDUCTED_EXPERIMENTS_DATA_MSC"
+                ],
+                "summary": "Get the requests data for that particular instance from all host instances on which it can be possible deployed and also the actual VM performance",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of replicas of service ",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " Instance to compare ",
+                        "name": "comparinginstance",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.RequestsData"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getRelevantInstancesDataBasedOnLimits/{apptype}/{appname}/{mainservicename}/{comparinginstance}/{replicas}": {
+            "get": {
+                "description": "Get the resources data for that particular instance from all host instances on which it it can be possible deployed",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CONDUCTED_EXPERIMENTS_DATA_MSC"
+                ],
+                "summary": "Get the resources data for that particular instance from all host instances on which it can be possible deployed",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of replicas of service ",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " Instance to compare ",
+                        "name": "comparinginstance",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.NodeValues"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getRelevantInstancesRequestsDataBasedOnLimits/{apptype}/{appname}/{comparinginstance}/{replicas}": {
+            "get": {
+                "description": "Get the Requests data for that particular instance from all host instances on which it it can be possible deployed",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CONDUCTED_EXPERIMENTS_DATA_MSC"
+                ],
+                "summary": "Get the Request data for that particular instance from all host instances on which it can be possible deployed",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name of application[primeapp, movieapp, webacapp]",
+                        "name": "appname",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "application type[compute, dbaccess, web]",
+                        "name": "apptype",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "number of replicas of service ",
+                        "name": "replicas",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": " Instance to compare ",
+                        "name": "comparinginstance",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.RequestsData"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getandStoreRegressionValues": {
+            "get": {
+                "description": "Query python regression_vm_boot to get the values for each instance type and then store in db",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "INSTANCE_VM_BOOTING_TIME"
+                ],
+                "summary": "Query python regression_vm_boot to get the values for each instance type and then store in db",
+                "responses": {
+                    "200": {
+                        "description": "Done",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/initUserConfig": {
+            "post": {
+                "description": "Initialize User KOPS Configuration",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "internalUse"
+                ],
+                "summary": "Initialize User KOPS Configuration",
+                "parameters": [
+                    {
+                        "description": "...",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/TERMINUS.AWSConfigStruct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/listAllInstances": {
+            "get": {
+                "description": "List all instances on AWS",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "internalUse"
+                ],
+                "summary": "List all instances on AWS",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TERMINUS.Ec2Instances"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/storeAllExperimentalTRN": {
+            "get": {
+                "description": "Get and store all MSC experimental, predicted and smart along with replicas predicted in DB",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "STORE_MSCs"
+                ],
+                "summary": "Get and store all MSC experimental, predicted and smart along with replicas predicted in DB",
+                "responses": {
+                    "200": {
+                        "description": "Completed",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/storeAllTRNRegressionIntoMongo": {
+            "get": {
+                "description": "Get and store all MSC predicted  in DB",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "STORE_MSCs"
+                ],
+                "summary": "Get and store all MSC predicted  in DB",
+                "responses": {
+                    "200": {
+                        "description": "Completed",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/testInstanceBootingShuttingTime": {
+            "get": {
+                "description": "Conducts the VM booting and shutting down experiment",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "INSTANCE_VM_BOOTING_TIME"
+                ],
+                "summary": "Conducts the VM booting and shutting down experiment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "number of instances",
+                        "name": "numInstances",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "total number of experiments to conduct",
+                        "name": "totalExperiments",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "started",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/trainDataSetRegression": {
+            "get": {
+                "description": "train the dataset",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "INSTANCE_VM_BOOTING_TIME"
+                ],
+                "summary": "Train the dataset",
+                "responses": {
+                    "200": {
+                        "description": "Started",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "TERMINUS.AWSConfigStruct": {
+            "type": "object",
+            "properties": {
+                "AwsAccessKeyId": {
+                    "type": "string"
+                },
+                "AwsSecretAccessKey": {
+                    "type": "string"
+                },
+                "KeyName": {
+                    "type": "string"
+                },
+                "Region": {
+                    "type": "string"
+                },
+                "SecurityGroup": {
+                    "type": "string"
+                },
+                "SubnetId": {
+                    "type": "string"
+                }
+            }
+        },
+        "TERMINUS.Ec2Instances": {
+            "type": "object",
+            "properties": {
+                "AvailabilityZone": {
+                    "type": "string"
+                },
+                "CoreCount": {
+                    "type": "integer"
+                },
+                "ImageId": {
+                    "type": "string"
+                },
+                "InstanceId": {
+                    "type": "string"
+                },
+                "InstanceState": {
+                    "type": "string"
+                },
+                "InstanceType": {
+                    "type": "string"
+                },
+                "LaunchTime": {
+                    "type": "string"
+                },
+                "PublicIpAddress": {
+                    "type": "string"
+                }
+            }
+        },
+        "TERMINUS.EventObjectItems": {
+            "type": "object",
+            "properties": {
+                "firstTimestamp": {
+                    "type": "string"
+                },
+                "kind": {
+                    "type": "string"
+                },
+                "lastTimestamp": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                }
+            }
+        },
+        "TERMINUS.ExperimentSetting": {
+            "type": "object",
+            "properties": {
+                "ExperimentNum": {
+                    "type": "string"
+                },
+                "Instances": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TERMINUS.InstancesData"
+                    }
+                },
+                "InstancesBootTime": {
+                    "type": "object",
+                    "$ref": "#/definitions/TERMINUS.InstanceTime"
+                },
+                "InstancesShutDownTime": {
+                    "type": "object",
+                    "$ref": "#/definitions/TERMINUS.InstanceTime"
+                },
+                "NumInstances": {
+                    "type": "integer"
+                },
+                "TotalInstancesBootTime": {
+                    "type": "integer"
+                },
+                "TotalInstancesShutDownTime": {
+                    "type": "integer"
+                }
+            }
+        },
+        "TERMINUS.ExperimentsLoop": {
+            "type": "object",
+            "properties": {
+                "Experiments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TERMINUS.ExperimentSetting"
+                    }
+                }
+            }
+        },
+        "TERMINUS.InstanceBootShutdownRate": {
+            "type": "object",
+            "properties": {
+                "BootTime": {
+                    "type": "object",
+                    "$ref": "#/definitions/TERMINUS.InstanceTime"
+                },
+                "NumExperiments": {
+                    "type": "integer"
+                },
+                "NumInstances": {
+                    "type": "integer"
+                },
+                "ShutdownTime": {
+                    "type": "object",
+                    "$ref": "#/definitions/TERMINUS.InstanceTime"
+                }
+            }
+        },
+        "TERMINUS.InstanceRegression": {
+            "type": "object",
+            "properties": {
+                "InstanceType": {
+                    "type": "string"
+                },
+                "InstanceValues": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TERMINUS.InstanceValue"
+                    }
+                },
+                "Region": {
+                    "type": "string"
+                }
+            }
+        },
+        "TERMINUS.InstanceTime": {
+            "type": "object",
+            "properties": {
+                "Avg": {
+                    "type": "number"
+                },
+                "Max": {
+                    "type": "integer"
+                },
+                "Min": {
+                    "type": "integer"
+                }
+            }
+        },
+        "TERMINUS.InstanceValue": {
+            "type": "object",
+            "properties": {
+                "BootTime": {
+                    "type": "string"
+                },
+                "NumInstances": {
+                    "type": "integer"
+                },
+                "ShutDownTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "TERMINUS.InstancesData": {
+            "type": "object",
+            "properties": {
+                "Other": {
+                    "type": "integer"
+                },
+                "Pending": {
+                    "type": "integer"
+                },
+                "Running": {
+                    "type": "integer"
+                },
+                "ShuttingDown": {
+                    "type": "integer"
+                },
+                "SshLogin": {
+                    "type": "integer"
+                },
+                "Stopped": {
+                    "type": "integer"
+                },
+                "Terminated": {
+                    "type": "integer"
+                }
+            }
+        },
+        "TERMINUS.KubeEventsMongoStoreObject": {
+            "type": "object",
+            "properties": {
+                "AppName": {
+                    "type": "string"
+                },
+                "AppType": {
+                    "type": "string"
+                },
+                "KubeEvents": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TERMINUS.EventObjectItems"
+                    }
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "Replicas": {
+                    "type": "string"
+                },
+                "TotalTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "TERMINUS.LimitsInfo": {
+            "type": "object",
+            "properties": {
+                "Cpu_cores": {
+                    "type": "number"
+                },
+                "Mem_gb": {
+                    "type": "number"
+                },
+                "Request_per_sercond": {
+                    "type": "number"
+                }
+            }
+        },
+        "TERMINUS.MSCDetails": {
+            "type": "object",
+            "properties": {
+                "Experimental": {
+                    "type": "number"
+                },
+                "RegBruteForce": {
+                    "type": "number"
+                },
+                "RegSmart": {
+                    "type": "number"
+                }
+            }
+        },
+        "TERMINUS.MSCInfo": {
+            "type": "object",
+            "properties": {
+                "Maximum_service_capacity_per_min": {
+                    "type": "object",
+                    "$ref": "#/definitions/TERMINUS.MSCDetails"
+                },
+                "Maximum_service_capacity_per_sec": {
+                    "type": "object",
+                    "$ref": "#/definitions/TERMINUS.MSCDetails"
+                },
+                "Pod_boot_time_ms": {
+                    "type": "number"
+                },
+                "PredictedReplicas": {
+                    "type": "number"
+                },
+                "Replicas": {
+                    "type": "number"
+                },
+                "Sd_Pod_boot_time_ms": {
+                    "type": "number"
+                }
+            }
+        },
+        "TERMINUS.MSCProfiles": {
+            "type": "object",
+            "properties": {
+                "Limits": {
+                    "type": "object",
+                    "$ref": "#/definitions/TERMINUS.LimitsInfo"
+                },
+                "MSCs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TERMINUS.MSCInfo"
+                    }
+                }
+            }
+        },
+        "TERMINUS.MSCValueObject": {
+            "type": "object",
+            "properties": {
+                "HostInstanceType": {
+                    "type": "string"
+                },
+                "MainServiceName": {
+                    "type": "string"
+                },
+                "Profiles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TERMINUS.MSCProfiles"
+                    }
+                },
+                "ServiceName": {
+                    "type": "string"
+                },
+                "ServiceType": {
+                    "type": "string"
+                },
+                "TestAPI": {
+                    "type": "string"
+                }
+            }
+        },
+        "TERMINUS.NodeValues": {
+            "type": "object",
+            "properties": {
+                "Cores": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "CpuUtil": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "InstanceType": {
+                    "type": "string"
+                },
+                "Mem": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "MemUtil": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "PodValues": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TERMINUS.PodValues"
+                    }
+                },
+                "Requests": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "Timestamps": {
+                    "type": "array",
+                    "items": {
+                        "type": "int64"
+                    }
+                }
+            }
+        },
+        "TERMINUS.PodBootingTimeStruct": {
+            "type": "object",
+            "properties": {
+                "AppName": {
+                    "type": "string"
+                },
+                "AppType": {
+                    "type": "string"
+                },
+                "MeanBootingTime": {
+                    "type": "number"
+                },
+                "NumTests": {
+                    "type": "integer"
+                },
+                "Replicas": {
+                    "type": "number"
+                },
+                "SdBootingTime": {
+                    "type": "number"
+                }
+            }
+        },
+        "TERMINUS.PodValues": {
+            "type": "object",
+            "properties": {
+                "CpuLimit": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "CpuRequest": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "CpuUtil": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "MemLimit": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "MemRequest": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "MemUtil": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "PodName": {
+                    "type": "string"
+                },
+                "Timestamps": {
+                    "type": "array",
+                    "items": {
+                        "type": "int64"
+                    }
+                }
+            }
+        },
+        "TERMINUS.RequestsData": {
+            "type": "object",
+            "properties": {
+                "InstanceType": {
+                    "type": "string"
+                },
+                "ReqDurationMax": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "ReqDurationMean": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "ReqDurationMedian": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "ReqDurationMin": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "ReqDurationPercentile90": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "ReqDurationPercentile95": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "Requests": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                },
+                "Timestamps": {
+                    "type": "array",
+                    "items": {
+                        "type": "int64"
+                    }
+                },
+                "Vus": {
+                    "type": "array",
+                    "items": {
+                        "type": "float64"
+                    }
+                }
+            }
+        },
+        "TERMINUS.TestInformation": {
+            "type": "object",
+            "properties": {
+                "AppName": {
+                    "type": "string"
+                },
+                "ContainerName": {
+                    "type": "string"
+                },
+                "EndTimestamp": {
+                    "type": "integer"
+                },
+                "Grafana": {
+                    "type": "string"
+                },
+                "InfluxDbK6Name": {
+                    "type": "string"
+                },
+                "InfluxDbK8sName": {
+                    "type": "string"
+                },
+                "Kibana": {
+                    "type": "string"
+                },
+                "LimitingInstanceType": {
+                    "type": "string"
+                },
+                "Limits": {
+                    "type": "string"
+                },
+                "Logs": {
+                    "type": "string"
+                },
+                "MasterInstanceType": {
+                    "type": "string"
+                },
+                "NodeCount": {
+                    "type": "string"
+                },
+                "NodeInstanceType": {
+                    "type": "string"
+                },
+                "NumMicroSvs": {
+                    "type": "string"
+                },
+                "Phase": {
+                    "type": "string"
+                },
+                "Replicas": {
+                    "type": "string"
+                },
+                "StartTimestamp": {
+                    "type": "integer"
+                },
+                "TestAPI": {
+                    "type": "string"
+                },
+                "TestIter": {
+                    "type": "string"
+                },
+                "TestVMIP": {
+                    "type": "string"
+                },
+                "TypeApp": {
+                    "type": "string"
+                }
+            }
+        },
+        "TERMINUS.VMBootShutDownRatePerInstanceTypeAll": {
+            "type": "object",
+            "properties": {
+                "InstanceValues": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TERMINUS.InstanceValue"
+                    }
+                }
+            }
+        },
+        "TERMINUS.VMBootShutDownRatePerInstanceTypeOne": {
+            "type": "object",
+            "properties": {
+                "BootTime": {
+                    "type": "string"
+                },
+                "ShutDownTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "TERMINUS.VmTemplateData": {
+            "type": "object",
+            "properties": {
+                "AvailabilityZone": {
+                    "type": "string"
+                },
+                "BootShutdownRate": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TERMINUS.InstanceBootShutdownRate"
+                    }
+                },
+                "CoreCount": {
+                    "type": "integer"
+                },
+                "ExperimentLoop": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TERMINUS.ExperimentsLoop"
+                    }
+                },
+                "ImageId": {
+                    "type": "string"
+                },
+                "InstanceType": {
+                    "type": "string"
+                },
+                "Region": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

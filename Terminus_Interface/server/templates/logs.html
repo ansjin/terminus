@@ -1,0 +1,64 @@
+{{define "content"}}
+
+<!-- Right Panel -->
+
+<div id="right-panel" class="right-panel">
+
+    <!-- Header-->
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Logs </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li class="active">Logs</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div >
+
+        <div  style="margin-left: 20px; padding: 10px ">
+            <div >
+                <p class="mb-3" style="padding: 10px">
+                    Here are the logs
+                </p>
+                <div style="text-align: justify">
+                   <pre style="white-space: pre-wrap; ">
+                        <div id="logs" style=" margin-left: 10px;  padding:10px; height: 768px;  overflow-y:scroll">
+                        </div>
+                    </pre>
+                </div>
+
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+
+
+</div>
+
+
+</div><!-- /#right-panel -->
+<script type="text/javascript">
+
+    // Create a new HTML5 EventSource
+    let source = new EventSource('/events/');
+    // Create a callback for when a new message is received.
+    source.onmessage = function(e) {
+        // Append the `data` attribute of the message to the DOM.
+        document.getElementById("logs").innerHTML += e.data + '<br>';
+    };
+</script>
+
+{{end}}

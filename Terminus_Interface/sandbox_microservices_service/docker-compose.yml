@@ -1,0 +1,42 @@
+ version: "2"
+ services:
+  sandbox_microservices:
+    container_name: 'sandbox_microservices'
+    build: 'server'
+    image: terminusimages/sandbox_microservices:latest
+    ports:
+      - '8083:8083'
+    environment:
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - MONGODB_USER=mongoDBSecureUser12378
+      - MONGODB_PASS=youdonthavetoknowthis8998
+      - AWS_KEY
+      - AWS_SECRET
+      - AWS_DEFAULT_REGION
+      - AWS_KEY_PAIR_NAME
+      - AWS_SUBNET_ID
+      - AWS_SECURITY_GROUP
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/ssl/certs:/etc/ssl/certs
+      - ./data:/data
+    restart: always
+    depends_on:
+      - 'mongodb'
+    links:
+      - 'mongodb'
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGODB_USER=mongoDBSecureUser12378
+      - MONGODB_PASS=youdonthavetoknowthis8998
+      - MONGO_INITDB_ROOT_USERNAME=mongoDBSecureUser12378
+      - MONGO_INITDB_ROOT_PASSWORD=youdonthavetoknowthis8998
+    volumes:
+      - ./mongo/db:/data/db
+    ports:
+        - "27017:27017"
+    command: mongod --auth # --quiet

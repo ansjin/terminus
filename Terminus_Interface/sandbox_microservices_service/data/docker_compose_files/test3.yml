@@ -1,0 +1,35 @@
+version: '2'
+services:
+  server:
+    image: ansjin/three_microservice:server
+    ports:
+      - "80:80"
+    depends_on:
+      - 'primeapp'
+      - 'movieapp'
+      - 'webacapp'
+    links:
+      - 'primeapp'
+      - 'movieapp'
+      - 'webacapp'
+  primeapp:
+    image: ansjin/primeapp:latest
+    ports:
+      - "9001:80"
+  movieapp:
+    ports:
+      - "9002:80"
+    restart: always
+    image: ansjin/movieapp:movie
+    links:
+      - mongo
+  mongo:
+    image: ansjin/movieapp:mongo
+    ports:
+      - "27017:27017"
+  webacapp:
+    build: ../src
+    ports:
+      - "80:80"
+    restart: always
+    image: ansjin/webacapp

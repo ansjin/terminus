@@ -1,0 +1,452 @@
+basePath: /
+definitions:
+  INSTANCE.Ec2Instances:
+    properties:
+      AvailabilityZone:
+        type: string
+      CoreCount:
+        type: integer
+      ImageId:
+        type: string
+      InstanceId:
+        type: string
+      InstanceState:
+        type: string
+      InstanceType:
+        type: string
+      LaunchTime:
+        type: string
+      PublicIpAddress:
+        type: string
+    type: object
+  INSTANCE.ExperimentSetting:
+    properties:
+      ExperimentNum:
+        type: string
+      Instances:
+        items:
+          $ref: '#/definitions/INSTANCE.InstancesData'
+        type: array
+      InstancesBootTime:
+        $ref: '#/definitions/INSTANCE.InstanceTime'
+        type: object
+      InstancesShutDownTime:
+        $ref: '#/definitions/INSTANCE.InstanceTime'
+        type: object
+      NumInstances:
+        type: integer
+      TotalInstancesBootTime:
+        type: integer
+      TotalInstancesShutDownTime:
+        type: integer
+    type: object
+  INSTANCE.ExperimentsLoop:
+    properties:
+      Experiments:
+        items:
+          $ref: '#/definitions/INSTANCE.ExperimentSetting'
+        type: array
+    type: object
+  INSTANCE.InitAWSFormData:
+    properties:
+      access_key:
+        type: string
+      region:
+        type: string
+      secret:
+        type: string
+    type: object
+  INSTANCE.InstanceBootShutdownRate:
+    properties:
+      BootTime:
+        $ref: '#/definitions/INSTANCE.InstanceTime'
+        type: object
+      NumExperiments:
+        type: integer
+      NumInstances:
+        type: integer
+      ShutdownTime:
+        $ref: '#/definitions/INSTANCE.InstanceTime'
+        type: object
+    type: object
+  INSTANCE.InstanceRegression:
+    properties:
+      InstanceType:
+        type: string
+      InstanceValues:
+        items:
+          $ref: '#/definitions/INSTANCE.InstanceValue'
+        type: array
+      Region:
+        type: string
+    type: object
+  INSTANCE.InstanceTime:
+    properties:
+      Avg:
+        type: number
+      Max:
+        type: integer
+      Min:
+        type: integer
+    type: object
+  INSTANCE.InstanceValue:
+    properties:
+      BootTime:
+        type: string
+      NumInstances:
+        type: integer
+      ShutDownTime:
+        type: string
+    type: object
+  INSTANCE.InstancesData:
+    properties:
+      Other:
+        type: integer
+      Pending:
+        type: integer
+      Running:
+        type: integer
+      ShuttingDown:
+        type: integer
+      SshLogin:
+        type: integer
+      Stopped:
+        type: integer
+      Terminated:
+        type: integer
+    type: object
+  INSTANCE.VMBootShutDownRatePerInstanceTypeAll:
+    properties:
+      InstanceValues:
+        items:
+          $ref: '#/definitions/INSTANCE.InstanceValue'
+        type: array
+    type: object
+  INSTANCE.VMBootShutDownRatePerInstanceTypeOne:
+    properties:
+      BootTime:
+        type: string
+      ShutDownTime:
+        type: string
+    type: object
+  INSTANCE.VmTemplateData:
+    properties:
+      AvailabilityZone:
+        type: string
+      BootShutdownRate:
+        items:
+          $ref: '#/definitions/INSTANCE.InstanceBootShutdownRate'
+        type: array
+      CoreCount:
+        type: integer
+      ExperimentLoop:
+        items:
+          $ref: '#/definitions/INSTANCE.ExperimentsLoop'
+        type: array
+      ImageId:
+        type: string
+      InstanceType:
+        type: string
+      Region:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: anshul.jindal@tum.de
+    name: Anshul Jindal
+  description: This is the api page for all APIs in INSTANCE
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  title: INSTANCE APIs
+  version: "1.0"
+paths:
+  /GetPerVMTypeOneBootShutDownData:
+    get:
+      consumes:
+      - text/html
+      description: Gives all the Booting and shutting down data
+      parameters:
+      - description: number of instances
+        in: query
+        name: numInstances
+        required: true
+        type: string
+      - description: instance type
+        in: query
+        name: instanceType
+        required: true
+        type: string
+      - description: 'aws region '
+        in: query
+        name: region
+        required: true
+        type: string
+      - description: appraoch avg or regression, by default it is avg
+        in: query
+        name: appraoch
+        required: true
+        type: string
+      - description: cloud service provider..current;y it is aws only
+        in: query
+        name: csp
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/INSTANCE.VMBootShutDownRatePerInstanceTypeOne'
+            type: object
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Gives all the Booting and shutting down data for a VM type
+      tags:
+      - internal_External_Use
+  /getAllVMTypesBootShutDownDataAvg:
+    get:
+      consumes:
+      - text/html
+      description: Gives all the Booting and shutting down data following avg approach
+      parameters:
+      - description: specify it yes if to take walues from the db and update the resulting
+          average
+        in: query
+        name: takeNewValues
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/INSTANCE.VmTemplateData'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Gives all the Booting and shutting down data following avg approach
+      tags:
+      - internalUse
+  /getAllVMTypesBootShutDownDataRegression:
+    get:
+      consumes:
+      - text/html
+      description: Gives all the Booting and shutting down data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/INSTANCE.InstanceRegression'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Gives all the Booting and shutting down data
+      tags:
+      - internalUse
+  /getPerVMTypeAllBootShutDownData:
+    get:
+      consumes:
+      - text/html
+      description: Gives all the Booting and shutting down data
+      parameters:
+      - description: instance type
+        in: query
+        name: instanceType
+        required: true
+        type: string
+      - description: 'aws region '
+        in: query
+        name: region
+        required: true
+        type: string
+      - description: appraoch avg or regression, by default it is avg
+        in: query
+        name: appraoch
+        required: true
+        type: string
+      - description: cloud service provider..current;y it is aws only
+        in: query
+        name: csp
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/INSTANCE.VMBootShutDownRatePerInstanceTypeAll'
+            type: object
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Gives all the Booting and shutting down data for a VM type
+      tags:
+      - internal_External_Use
+  /getandStoreRegressionValues:
+    get:
+      consumes:
+      - text/html
+      description: Query python regression to get the values for each instance type
+        and then store in db
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Done
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Query python regression to get the values for each instance type and
+        then store in db
+      tags:
+      - internalUse
+  /initUserConfig:
+    post:
+      consumes:
+      - application/json
+      description: Initialize User Configuration
+      parameters:
+      - description: '{''access_key'': '''', ''secret'': '''', ''region'':''''}'
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/INSTANCE.InitAWSFormData'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Initialize User Configuration
+      tags:
+      - internalUse
+  /listAllInstances:
+    get:
+      consumes:
+      - text/html
+      description: List all instances on AWS
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/INSTANCE.Ec2Instances'
+            type: array
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: List all instances on AWS
+      tags:
+      - internalUse
+  /trainDataSetRegression:
+    get:
+      consumes:
+      - text/html
+      description: train the dataset
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Started
+          schema:
+            type: string
+        "400":
+          description: ok
+          schema:
+            type: string
+        "404":
+          description: ok
+          schema:
+            type: string
+        "500":
+          description: ok
+          schema:
+            type: string
+      summary: Train the dataset
+      tags:
+      - internalUse
+swagger: "2.0"

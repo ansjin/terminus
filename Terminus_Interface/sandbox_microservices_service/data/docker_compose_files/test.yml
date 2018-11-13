@@ -1,0 +1,29 @@
+version: '2'
+services:
+  server:
+    image: ansjin/three_microservice:server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - 'hello-world-service'
+      - 'product-descp-service'
+    links:
+      - 'hello-world-service'
+      - 'product-descp-service'
+  hello-world-service:
+    image: ansjin/three_microservice:hello
+    ports:
+      - "9001:9001"
+  product-descp-service:
+    image: ansjin/three_microservice:productdescp
+    ports:
+      - "9002:9002"
+  dummy:
+    image: ansjin/three_microservice:dummy
+    ports:
+      - "9005:9005"
+    depends_on:
+      - 'server'
+    links:
+      - 'server'
+

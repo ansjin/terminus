@@ -1,0 +1,20 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+#folders to ignore
+INSTANCE/server/vendor
+INSTANCE/mongo
+Terminus_Data_Collection/server/vendor
+Terminus_Data_Collection/mongo
+Terminus_Interface/server/vendor
+

@@ -1,0 +1,34 @@
+version: '2'
+services:
+  serveapp:
+    image: ansjin/four_microservice:serveapp
+    ports:
+      - "8080:8080"
+    depends_on:
+      - 'primeapp'
+      - 'movieapp'
+      - 'webacapp'
+    links:
+      - 'primeapp'
+      - 'movieapp'
+      - 'webacapp'
+  primeapp:
+    image: ansjin/four_microservice:primeapp
+    ports:
+      - "9001:9001"
+  movieapp:
+    ports:
+      - "9002:9002"
+    restart: always
+    image: ansjin/four_microservice:movieapp
+    links:
+      - mongo
+  mongo:
+    image: ansjin/movieapp:mongo
+    ports:
+      - "27017:27017"
+  webacapp:
+    ports:
+      - "9003:9003"
+    restart: always
+    image: ansjin/four_microservice:webacapp

@@ -1,0 +1,3 @@
+[submodule "Terminus_Data_Collection/data/apps"]
+	path = Terminus_Data_Collection/data/apps
+	url = https://github.com/ansjin/apps.git
