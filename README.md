@@ -100,13 +100,12 @@ https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-windows.html
   1. Go into Services->VPC->Subnets
   2. Note down the default <b>Subnet ID</b> 
 
-## Running 
 ### VM creation for Terminus Deployment
  1. Create a t2.large with OS as Ubuntu 18.04 VM on AWS.
  2. Add storage disk of minimum 90GB.
  3. Add the security group with allowed access to all traffic from any source to it.   
  4. SSH into it
-### Required Installation
+### Required Installation on the VM
  1. Mongodb needs to installed on the machine from which this restoreing is done. <a href = "https://docs.mongodb.com/manual/installation/">Here</a> is the procedure to install or follwo these command for Ubuntu 18.04 : 
  ```sh
    $ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
@@ -117,8 +116,22 @@ https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-windows.html
  2. Install s3cmd 
  ```sh
     $ sudo apt-get install -y s3cmd
+   ```
+ 3. Configure s3cmd
+ ```sh
+    $ s3cmd --configure
    ``` 
- 
+ 4. Provide your Access key and Secret Key. Default Region as ap-southeast-2
+    Leave the rest to default and save the configuration.
+ 5. Influxdb installation : 
+ ```sh
+    $ curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+    $ source /etc/lsb-release
+    $ echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+    $ sudo apt-get update && sudo apt-get install influxdb
+    $ sudo service influxdb start    
+   ```
+## Running  
 ### Terminus Deployment
   After doing SSH into the VM follow below procedure.
   1. Clone the Repository
@@ -159,9 +172,18 @@ https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-windows.html
 It needs to be only downloaded if you want to perform traning again or view the data other than MSC. 
 All the collected monitoring data is stored in the <a href= "https://s3.console.aws.amazon.com/s3/buckets/terminusinflusddata/?region=ap-southeast-2&tab=overview"> S3 bucket</a>.
 To use those dataset for the initial setup, follow the below procedure.
- 2. Configure s3cmd Environment ```s3cmd --configure```
- 3. Get all the files by running ```s3cmd get --recursive s3://terminusinflusddata/ /srv/docker/influxdb/data```
- 4. We will have all the data inside the influxdb directory.
+ 1. Make a directory to contain all the data  
+ ```sh 
+    $ sudo mkdir /data
+ ```
+ 2. Now, gGet all the compressed influxdb files by running 
+ ```sh 
+    $ sudo s3cmd get --recursive s3://terminusinflusddata/ /data
+   ```
+ 3. Now we will have all the data inside the directory, we need to restore back to influxdb by running the following command:
+ ```sh 
+     $ sudo influxd restore -portable -host <VM public IP:8088> *
+   ```
   
 ### Initial Training and Setup
  1. From web browser visit 
