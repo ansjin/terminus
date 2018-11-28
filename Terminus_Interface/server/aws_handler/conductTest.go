@@ -48,7 +48,7 @@ func GetVMStartScript(clusterName, containerName, s3BucketName string)string{
 		"KOPS_CONTAINER_NAME="+containerName+" \n"+
 		"KOPS_S3_BUCKET_NAME="+s3BucketName+" \n"+
 		"EOM\n"+
-		"cd thesis/Terminus_Data_Collection/scripts  \n"+
+		"cd terminus/Terminus_Data_Collection/scripts  \n"+
 		"sudo sh deploy_app.sh  \n"
 
 	encodedString:=b64.StdEncoding.EncodeToString([]byte(VMStartScript))
